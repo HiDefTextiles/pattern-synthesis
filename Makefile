@@ -17,7 +17,7 @@ stats: data | $(OUT)
 	@echo "wrote $(OUT)/corpus-stats.tsv"
 
 banners: data | $(OUT)
-	python3 python/banner.py --preset all --slots 6 --far 1000 --out $(OUT)/banners
+	python3 python/banner.py --preset all --slots 9 --far 1000 --out $(OUT)/banners
 
 review:
 	quarto render review

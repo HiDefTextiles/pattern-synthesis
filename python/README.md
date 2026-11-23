@@ -6,7 +6,9 @@ Exploratory Python (numpy, Pillow).
   stretch between slots k and k+1 depends only on those two motifs, so any
   window renders on its own. Presets: `manuscripts` (runs from one manuscript,
   seamless switch), `mix` (pure mix), `derived` (every other motif is new,
-  generated from one manuscript's motifs and made D4-symmetric).
+  generated from one manuscript's motifs and made D4-symmetric), `evolve`
+  (originals only every 4th slot as anchors; the motifs between are new and
+  morph from one anchor's patch statistics to the next, with wider gaps).
   Output is two-colour (pattern first). `--colour` applies the provisional
   `ColourPlan`, a separate later stage: it gives each knitted row background + one contrast colour, with a
   short dithered three-colour switch; four colours in total.

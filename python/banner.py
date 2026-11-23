@@ -45,10 +45,11 @@ def sub_rng(seed: int, *key: int) -> np.random.Generator:
 class MotifPolicy:
     """How slot k chooses its motif."""
 
-    kind: str                       # "mix", "manuscripts" or "derived"
+    kind: str                       # "mix", "manuscripts", "derived" or "evolve"
     pool: list[Pattern]
     run_length: int = 3             # slots per manuscript in "manuscripts" mode
     derived_every: int = 2          # in "derived" mode, every n-th slot is new
+    anchor_every: int = 4           # in "evolve" mode, originals only at these slots
 
     def __post_init__(self):
         self.by_source: dict[str, list[Pattern]] = {}
@@ -78,10 +79,14 @@ class MotifPolicy:
 class DerivedMotif:
     """A new D4-symmetric motif with the 'DNA' of originals from one source."""
 
-    def __init__(self, parents: list[Pattern], size: int, n: int = 3):
+    def __init__(self, parents: list[Pattern], size: int, n: int = 3,
+                 mix: list[float] | None = None):
+        """`mix` weights each parent's patch statistics (default: equal)."""
         self.parents = parents
         self.size = size if size % 2 else size + 1
         self.model = OverlapModel([p.cells for p in parents], n=n)
+        mix = np.ones(len(parents)) if mix is None else np.asarray(mix, float)
+        self.prior = (mix[:, None] * np.array(self.model.counts_by_sample)).sum(0) / mix.sum() + 1e-4
 
     def generate(self, rng: np.random.Generator, attempts: int = 30) -> np.ndarray:
         s = self.size
@@ -90,7 +95,7 @@ class DerivedMotif:
             pinned = -np.ones((r, r), dtype=int)
             pinned[0, :] = 0                                  # outer edge background
             pinned[:, 0] = 0
-            weights = np.tile(np.mean(self.model.counts_by_sample, 0), (r - self.model.n + 1, 1))
+            weights = np.tile(self.prior, (r - self.model.n + 1, 1))
             try:
                 q = OverlapSolver(self.model, pinned, weights).solve(rng)
             except Contradiction:
@@ -122,6 +127,10 @@ class Banner:
         """Cells, label and whether slot k is derived (generated)."""
         if ("m", k) in self._cache:
             return self._cache[("m", k)]
+        if self.policy.kind == "evolve":
+            result = self._evolved(k)
+            self._cache[("m", k)] = result
+            return result
         orig = self.policy.original(self.seed, k)
         result = (orig.cells, orig.name, False)
         if self.policy.kind == "derived" and k % self.policy.derived_every == 1:
@@ -134,6 +143,28 @@ class Banner:
                 pass
         self._cache[("m", k)] = result
         return result
+
+    def _evolved(self, k: int) -> tuple[np.ndarray, str, bool]:
+        """Original anchors every `anchor_every` slots; between them, new motifs
+        whose patch statistics morph from the left anchor to the right one."""
+        e = self.policy.anchor_every
+        j, i = divmod(k, e)
+        a = self.policy.original(self.seed + 7919, j)     # anchor sequence, no repeats
+        if i == 0:
+            return a.cells, a.name, False
+        b = self.policy.original(self.seed + 7919, j + 1)
+        t = i / e
+        kin_a = [p for p in self.policy.by_source[source_of(a.name)] if p is not a][:2]
+        kin_b = [p for p in self.policy.by_source[source_of(b.name)] if p is not b][:2]
+        parents = [a, *kin_a, b, *kin_b]
+        mix = ([(1 - t) * 3] + [(1 - t)] * len(kin_a) + [t * 3] + [t] * len(kin_b))
+        size = int(round((1 - t) * a.shape[0] + t * b.shape[0]))
+        size = int(np.clip(size, 21, self.strip))
+        try:
+            cells = DerivedMotif(parents, size, n=self.n, mix=mix).generate(sub_rng(self.seed, 3, k))
+            return cells, f"new({source_of(a.name)}>{source_of(b.name)} {t:.2f})", True
+        except Contradiction:
+            return a.cells, a.name, False
 
     def width(self, k: int) -> int:
         return self.motif(k)[0].shape[1]
@@ -148,6 +179,8 @@ class Banner:
     def _extras(self, name: str) -> list[np.ndarray]:
         if self.corpus is None:
             return []
+        if name.startswith("new("):
+            name = name[4:].split(">")[0]
         src = source_of(name) if not name.startswith("new~") else name[4:]
         same = [p for p in self.corpus.patterns.values()
                 if source_of(p.name) == src and min(p.shape) >= 5]
@@ -195,6 +228,10 @@ class Banner:
         else:
             cells = np.where(pinned >= 0, pinned, 0).astype(np.uint8)
         generated = pinned < 0
+        if self.motif(k)[2]:                                   # derived motifs are new too
+            generated[ta:ta + a.shape[0], :left.shape[1]] = True
+        if self.motif(k + 1)[2]:
+            generated[tb:tb + b.shape[0], width - right.shape[1]:] = True
         self._cache[("s", k)] = (cells, generated)
         return cells, generated
 
@@ -273,6 +310,7 @@ def presets(corpus: Corpus) -> dict[str, dict]:
         "manuscripts": dict(kind="manuscripts", band="thjms1105_38_p2", seed=11),
         "mix": dict(kind="mix", band="natmus453_734_p3", seed=22),
         "derived": dict(kind="derived", band="natmus453_766_p5", seed=33),
+        "evolve": dict(kind="evolve", band="thjms1105_38_p2", seed=44, gap=26),
     }, motifs
 
 
@@ -292,7 +330,8 @@ def main() -> None:
     names = table if args.preset == "all" else {args.preset: table[args.preset]}
     for name, cfg in names.items():
         policy = MotifPolicy(cfg["kind"], motifs)
-        banner = Banner(name, cfg["seed"], policy, corpus.band_tile(cfg["band"]), corpus=corpus)
+        banner = Banner(name, cfg["seed"], policy, corpus.band_tile(cfg["band"]), corpus=corpus,
+                        gap=cfg.get("gap", 14))
         windows = [(0, args.slots)]
         if name == "mix":
             windows.append((args.far, args.far + 3))
