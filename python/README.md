@@ -12,3 +12,8 @@ Exploratory Python (numpy, Pillow).
   Output is two-colour (pattern first). `--colour` applies the provisional
   `ColourPlan`, a separate later stage: it gives each knitted row background + one contrast colour, with a
   short dithered three-colour switch; four colours in total.
+
+* `fillers.py`: interchangeable gap fillers behind one interface: `wfc`,
+  `efros-leung`, `quilting`, `symmetric` (Efros-Leung on the left half, mirrored)
+  and `cellular`. `python3 python/banner.py --filler compare` renders the same
+  banner with each; `python3 python/compare_fillers.py` scores them.

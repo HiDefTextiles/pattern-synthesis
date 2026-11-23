@@ -2,7 +2,7 @@
 CORPUS := data/sjonabok/patterns/txt
 OUT    := out
 
-.PHONY: all data stats banners review preview clean
+.PHONY: all data stats banners compare review preview clean
 
 all: stats review
 
@@ -18,6 +18,10 @@ stats: data | $(OUT)
 
 banners: data | $(OUT)
 	python3 python/banner.py --preset all --slots 9 --far 1000 --out $(OUT)/banners
+
+compare: data | $(OUT)
+	python3 python/banner.py --filler compare --slots 4 --out $(OUT)/compare
+	python3 python/compare_fillers.py 4
 
 review:
 	quarto render review

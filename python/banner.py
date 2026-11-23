@@ -21,6 +21,7 @@ from pathlib import Path
 import numpy as np
 
 from sjonabok import Corpus, Pattern
+from fillers import FILLERS, Filler, WfcFiller
 from wfc import Contradiction, OverlapModel, OverlapSolver
 
 CORPUS_DIR = Path("data/sjonabok/patterns/txt")
@@ -120,6 +121,7 @@ class Banner:
     n: int = 3
     extras_per_source: int = 3
     corpus: Corpus | None = None
+    filler: Filler | None = None    # default: overlapping WFC
     _cache: dict = field(default_factory=dict, repr=False)
 
     # ---- motifs -------------------------------------------------------------
@@ -211,22 +213,10 @@ class Banner:
 
         left_samples = [pa] + self._extras(an)
         right_samples = [pb] + self._extras(bn)
-        model = OverlapModel(left_samples + right_samples, n=self.n)
-        wl = np.mean(model.counts_by_sample[:len(left_samples)], 0)
-        wr = np.mean(model.counts_by_sample[len(left_samples):], 0)
-        t = np.linspace(0, 1, width - self.n + 1)[:, None]
-        weights = (1 - t) * wl + t * wr + 1e-4                  # style drifts A -> B
-        rng = sub_rng(self.seed, 4, k)
-        half = self.strip // 2 + 1                         # solve the top half, mirror it
-        for _ in range(40):
-            try:
-                top = OverlapSolver(model, pinned[:half], weights).solve(rng)
-                cells = np.vstack([top, top[-2::-1]])
-                break
-            except Contradiction:
-                continue
-        else:
-            cells = np.where(pinned >= 0, pinned, 0).astype(np.uint8)
+        filler = self.filler or WfcFiller(n=self.n)
+        half = self.strip // 2 + 1                         # fill the top half, mirror it
+        top = filler.fill(pinned[:half], left_samples, right_samples, sub_rng(self.seed, 4, k))
+        cells = np.vstack([top, top[-2::-1]])
         generated = pinned < 0
         if self.motif(k)[2]:                                   # derived motifs are new too
             generated[ta:ta + a.shape[0], :left.shape[1]] = True
@@ -320,6 +310,8 @@ def main() -> None:
     ap.add_argument("--slots", type=int, default=6)
     ap.add_argument("--out", type=Path, default=Path("out/banners"))
     ap.add_argument("--far", type=int, default=1000, help="also render slots starting here")
+    ap.add_argument("--filler", default="wfc", choices=[*FILLERS, "compare"],
+                    help="gap filler; 'compare' renders the mix preset with every filler")
     ap.add_argument("--colour", action="store_true",
                     help="also apply the (provisional) colour plan; patterns come first")
     args = ap.parse_args()
@@ -328,12 +320,18 @@ def main() -> None:
     table, motifs = presets(corpus)
     args.out.mkdir(parents=True, exist_ok=True)
     names = table if args.preset == "all" else {args.preset: table[args.preset]}
-    for name, cfg in names.items():
+    jobs = [(n, c, args.filler) for n, c in names.items()]
+    if args.filler == "compare":
+        base = args.preset if args.preset != "all" else "mix"
+        jobs = [(base, table[base], f) for f in FILLERS]
+    for name, cfg, fname in jobs:
         policy = MotifPolicy(cfg["kind"], motifs)
         banner = Banner(name, cfg["seed"], policy, corpus.band_tile(cfg["band"]), corpus=corpus,
-                        gap=cfg.get("gap", 14))
+                        gap=cfg.get("gap", 14), filler=FILLERS[fname]())
+        if fname != "wfc":
+            name = f"{name}-{fname}"
         windows = [(0, args.slots)]
-        if name == "mix":
+        if name == "mix" and args.filler != "compare":
             windows.append((args.far, args.far + 3))
         plan = None
         if args.colour:                                   # optional later stage
