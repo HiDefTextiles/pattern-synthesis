@@ -6,7 +6,7 @@ Each family above is good at one thing. The recommendation is a pipeline
 of small stages that share **one pattern type** and **one seeded RNG**:
 
 ```
-corpus ──► motif library ──► layout ──► structure ──► texture ──► repair ──► export
+corpus ──► motif library ──► layout ──► structure ──► texture ──► colour ──► repair ──► export
            (cut, canonical-   (banner    (symmetry    (constrained (float/    (txt, png,
             ise, cluster)      sequence)  group fill)  WFC / MRF / colour     machine)
                                                        quilting)   checks)
@@ -23,10 +23,12 @@ corpus ──► motif library ──► layout ──► structure ──► te
    exact on binary data and naturally respects fixed motifs
    (@sec-wfc). Keep image quilting as the second filler behind the same
    interface, to compare (@sec-texture).
-5. **Repair**: enforce machine rules (float length or backing choice,
+5. **Colour**: map the binary chart to up to four colours (by region, row
+   band or motif), seeded like the other stages.
+6. **Repair**: enforce machine rules (width at most 179 needles, float length or backing choice,
    isolated stitches) with a local re-synthesis pass, as in Merrell's
    modify-in-blocks [@merrell2021comparing].
-6. **Export**: the Sjonabok `.txt` format, PNG previews for the site, and
+7. **Export**: the Sjonabok `.txt` format, PNG previews for the site, and
    the machine format.
 
 Learned models (@sec-learned) are left out of version 1 and can be added

@@ -66,5 +66,7 @@ Observations that matter for generation:
 4. **Symmetry is strong but not universal.** About a fifth of files have
    both mirror symmetries. Symmetry should be detected and stored as
    metadata rather than assumed.
-5. **Two colours only.** The matrices are binary, which matches two-colour
-   jacquard directly.
+5. **Two colours in, up to four out.** The matrices are binary, while the
+   HiDEF Passap setup takes up to four colours over at most 179 needles
+   (Helga, 2026-11-23). Colour assignment is therefore a separate,
+   generation-time step, and every 115-wide band fits the machine width.

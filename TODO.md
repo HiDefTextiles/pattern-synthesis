@@ -2,8 +2,8 @@
 
 Short list for Helga. Background for each item is in the Quarto review (`review/`).
 
-1. **Credit line.** The Sjónabók patterns are public domain (Helga, 2026-11-23), so
-   no permission is needed. Decide only how generated work credits the source
+1. **Credit line.** The Sjónabók patterns are ancient and public domain (Helga,
+   2026-11-23), so no permission is needed. Decide only how generated work credits the source
    (Heimilisiðnaðarfélag Íslands, Listaháskóli Íslands, Þjóðminjasafn Íslands and the
    original manuscript or museum number). Keep the `.eps` files from the CD out of git
    unless their own licence is also clear.
@@ -16,10 +16,12 @@ Short list for Helga. Background for each item is in the Quarto review (`review/
 3. **Pick the main motifs for the banner.** How many, which ones, and in what
    order. A clustering pass can propose candidates; the final choice is yours.
 
-4. **Machine constraints on the Passap E6000.** Maximum width in needles, maximum
-   rows per pattern for the download path you use, two colours per row (yes for
-   now), the backing structure (birdseye, stripes, ...) and whether float length
-   matters at all with that backing. The NSN-2024 report is the place to check.
+4. **Machine constraints on the Passap E6000.** Known (Helga, 2026-11-23): width at
+   most 179 needles, up to 4 colours. Still open: maximum rows per pattern for the
+   download path you use, colours per row (all 4, or 2 per row with changes between
+   rows), the backing structure, and whether float length matters with that backing.
+   Also: how to map the binary Sjónabók charts to 3 or 4 colours (by region, by row
+   band, or by motif).
 
 5. **Banner layout.** Target size in stitches and rows, whether it must repeat
    seamlessly horizontally, whether it has top and bottom border bands, and
