@@ -2,7 +2,7 @@
 CORPUS := data/sjonabok/patterns/txt
 OUT    := out
 
-.PHONY: all data stats review preview clean
+.PHONY: all data stats banners review preview clean
 
 all: stats review
 
@@ -15,6 +15,9 @@ $(OUT):
 stats: data | $(OUT)
 	scripts/corpus-stats.sh $(CORPUS) > $(OUT)/corpus-stats.tsv
 	@echo "wrote $(OUT)/corpus-stats.tsv"
+
+banners: data | $(OUT)
+	python3 python/banner.py --preset all --slots 6 --far 1000 --out $(OUT)/banners
 
 review:
 	quarto render review

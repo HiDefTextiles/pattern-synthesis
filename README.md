@@ -12,8 +12,11 @@ the main Sjónabók motifs and blends smoothly between them.
 The method is deliberately open. The literature review in `review/` compares
 wave function collapse, texture synthesis, symmetry and grammar based
 generation, and learned models, and argues for a composable pipeline (see
-`review/09-recommendation.qmd`). **No generator is implemented yet**; see
-[`TODO.md`](TODO.md) for the decisions to make first.
+`review/09-recommendation.qmd`). A first **Python prototype** (`python/banner.py`, `make banners`) renders an
+endless, seeded banner: border bands, Sjónabók motifs pinned on a centre line,
+overlapping WFC filling the stretches between them, and a colour plan with two
+colours per knitted row. Previews are in `previews/`. The C++ core comes after
+the decisions in [`TODO.md`](TODO.md).
 
 This repository is meant to become a git submodule of the HiDEF site
 (HiDefTextiles/hidefTextiles.github.io).
@@ -35,6 +38,7 @@ This repository is meant to become a git submodule of the HiDEF site
 ```sh
 git clone --recurse-submodules https://github.com/HiDefTextiles/pattern-synthesis-
 make stats      # corpus sizes and fill ratios -> out/corpus-stats.tsv
+make banners    # prototype banners -> out/banners/ (needs numpy, Pillow)
 make review     # render the Quarto book -> review/_book/
 make preview    # live preview of the book
 ```
