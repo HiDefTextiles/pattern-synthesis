@@ -1,0 +1,70 @@
+# The Sjónabók corpus {#sec-corpus}
+
+## Source
+
+*Íslensk sjónabók: Ornaments and Patterns Found in Iceland*
+[@sjonabok2009] was published jointly by Heimilisiðnaðarfélag Íslands,
+Listaháskóli Íslands and Þjóðminjasafn Íslands. It reproduces patterns from
+old Icelandic pattern books and textiles held in museum collections, and the
+book ships with a CD of `.eps` figures.
+
+## What is in the HiDEF repositories
+
+Two copies exist:
+
+* **HiDefTextiles/Sjonabok on GitHub** (pinned here as
+  `data/sjonabok`): 600 `patterns/txt/*.txt` files and the Python
+  converters. No EPS files are published.
+* **Helga's local working copy** (`Documents/Sjonabok`): additionally
+  holds the source `.eps` (258 pattern pages, 50 alphabet pages,
+  43 multi-motif pages), rendered PNG/JPG, an `alphabet/` set of 1,142
+  split letters and digits with an `alphabet_list` label map, rotated
+  variants (`images-rot/`), and a few high-resolution print renders
+  (`utmessan/`). It also has uncommitted local edits to the converters.
+
+## Format
+
+Each `.txt` is a binary matrix, one row per line, `1` = contrast colour
+(black on the CD), `0` = background. The converter thresholds the EPS raster
+at grey level 240, detects the chart's grid lines and keeps one value per
+cell. Files are named `<source>_<page>[_pN].txt`; `source` is the original
+manuscript or museum number (e.g. `natmus453`, `thjms5898`) and `_pN`
+marks a sub-pattern cut from a page by `split_patterns.py` using gaps of at
+least five empty rows or columns.
+
+## First numbers
+
+From `make stats` and a quick Python pass over the 600 files:
+
+| Quantity | Value |
+|---|---|
+| Files | 600 (426 are `_pN` splits) |
+| Sources | 10 (largest: thjms5898 135, thjms1105 101, natmus453 89) |
+| Width | 7 to 121 cells, median 115 |
+| Height | 3 to 129 rows, median 17.5 |
+| Exactly 115 wide | 351 (horizontal borders padded to page width) |
+| Square | 144 |
+| Mirror symmetric left-right | 171 |
+| Mirror symmetric top-bottom | 160 |
+| Both mirrors | 113 |
+| 90° rotation invariant (square only) | 87 |
+| Longest single-colour run per row, median | 13 |
+
+Observations that matter for generation:
+
+1. **Two kinds of pattern.** Many are *borders* (bands, 115 wide, short)
+   and many are *square rosettes/stars* with dihedral symmetry. A
+   generator probably needs both: bands are frieze patterns, squares are
+   point-symmetric motifs (@sec-symmetry).
+2. **Margins are not pattern.** Bands are padded to the page width, so
+   the run-length numbers above overstate floats. Margins must be trimmed
+   before any float or statistics work.
+3. **Splitting is heuristic.** `_pN` boundaries come from a gap rule and
+   occasionally cut a motif or merge two; the alphabet map contains
+   `border?` labels. A manual curation pass is needed before motif
+   clustering.
+4. **Symmetry is strong but not universal.** About a fifth of files have
+   both mirror symmetries. Symmetry should be detected and stored as
+   metadata rather than assumed.
+5. **Two colours only.** The matrices are binary, which matches two-colour
+   jacquard directly.

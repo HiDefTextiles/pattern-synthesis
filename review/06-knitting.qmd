@@ -1,0 +1,51 @@
+# Knitting-specific prior work {#sec-knitting}
+
+## Computational machine knitting
+
+The MIT and CMU groups have built much of the modern toolchain:
+a compiler from high-level shapes to machine instructions
+[@mccann2016compiler], automatic knitting of 3D meshes
+[@narayanan2018automatic], inferring machine instructions from photos of
+knitted fabric with a neural network [@kaspar2019neural], and turning
+cut-and-sew garment patterns into machine-knit programs
+[@kaspar2021knit]. These are about *structure* (stitches, shaping) more
+than colourwork, but they establish representations (stitch grids,
+instruction "programs") that a chart generator should be able to export to.
+
+## Patterns from images and sketches
+
+The paper *Generating knitting patterns from a sketch: a CSP approach* [@knitsketch2013] *(authors not verified)* frames turning a sketch into a
+knitting pattern as a CSP, an early example of constraint solving for
+knitting design. Commercial and hobby "photo to chart" tools for Fair Isle
+and intarsia exist (e.g. ArtPatt), but these quantise an image rather than
+generate in a style.
+
+## Stranded colourwork, Fair Isle and jacquard
+
+Stranded colourwork (including Fair Isle) traditionally uses two colours per
+row with the unused colour carried as a float behind the work
+[@wikipedia_fairisle]. Practitioner guidance limits floats to roughly five
+to seven stitches before they must be caught; this is craft convention
+rather than a published standard *(no academic source found)*. On a
+double-bed machine such as the Passap E6000, two-colour jacquard knits the
+back bed in a backing structure (birdseye, stripes, etc.), so the float
+limit is replaced by back-bed choices that affect density and hand. The
+HiDEF Passap work (NSN-2024 report) is the right local source for these
+constraints.
+
+We found **no peer-reviewed work on style-conditioned generation of
+stranded or jacquard charts** from a historical corpus. Related public
+experiments exist, e.g. Janelle Shane's neural-network "SkyKnit" knitting
+patterns (2018, blog post, *unverified details*), but these generate
+written instructions, not charts. This gap is a reasonable contribution
+for HiDEF.
+
+## Icelandic sources
+
+Beyond the Sjónabók book itself [@sjonabok2009], Elsa E. Guðjónsson's
+scholarship on Icelandic embroidery, including *Íslenskur útsaumur*
+[@gudjonsson1985utsaumur] and the posthumous *Með verkum handanna:
+Íslenskur refilsaumur fyrri alda* [@gudjonsson2016refil], documents the
+refilsaumur hangings that inspire the banner idea. The Textile Research
+Centre Leiden also has short online entries on refilsaumur and on
+eighteenth-century Icelandic counted-thread patterns [@trc_refilsaumur].

@@ -1,0 +1,35 @@
+# Learned generative models {#sec-learned}
+
+## Options
+
+* **Variational autoencoders** [@kingma2014vae] learn a smooth latent
+  space; interpolating between two motifs' codes is a natural "blend",
+  though decoded binary charts tend to be blurry and need thresholding.
+* **GANs** [@goodfellow2014gan] produce sharp samples but are hard to train
+  on small data. **SinGAN** [@shaham2019singan] trains on a single image and
+  is the closest GAN analogue of texture synthesis.
+  **TOAD-GAN** [@awiszus2020toad] adapts the SinGAN idea to tile-based game
+  levels from a single example, which is structurally close to binary
+  charts.
+* **Diffusion models** [@ho2020ddpm] are the current state of the art for
+  image generation, and **RePaint** [@lugmayr2022repaint] shows how an
+  unconditional diffusion model can inpaint arbitrary masks, i.e. fill
+  between fixed motifs.
+* **Neural texture statistics** [@gatys2015texture] (Gram matrices of CNN
+  features) are useful mostly as an *evaluation* signal (@sec-evaluation).
+
+## Data reality
+
+The corpus is about 600 small binary charts from ten sources, many of them
+fragments of the same page. That is far below what VAEs, GANs or diffusion
+models normally need; single-image methods (SinGAN, TOAD-GAN) or heavy
+augmentation by the symmetry group are the only realistic routes. Learned
+models also complicate the reproducibility requirement: bitwise
+determinism needs pinned library versions, deterministic kernels and stored
+weights.
+
+## Fit for this project
+
+Not a first step. A small model may later be useful as one layer (e.g.
+latent interpolation for blends, or a learned critic), once a
+non-learned baseline exists to compare against.

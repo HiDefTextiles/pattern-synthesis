@@ -1,0 +1,46 @@
+# Symmetry, grammars and cellular automata {#sec-symmetry}
+
+## Symmetry groups
+
+Repeating plane patterns fall into the 7 frieze groups (one direction of
+translation, i.e. *bands*) and the 17 wallpaper groups (two directions)
+[@grunbaum1987tilings]. @washburn1988symmetries made symmetry
+classification a standard tool for analysing textile and ceramic design
+across cultures. @liu2004computational give an algorithm that detects the
+frieze or wallpaper group of a periodic image, which could be used on the
+Sjónabók bands directly.
+
+For generation this suggests a cheap and powerful split: generate only a
+**fundamental region** and produce the rest by applying the group. A
+rosette with dihedral symmetry $D_4$ needs one eighth of the square; a
+border with a horizontal mirror needs half a period. Almost all hard
+"structure" problems (balance, symmetry, period) then disappear by
+construction, and a texture method (@sec-wfc, @sec-texture) only has to
+fill a small region. Symmetry in the corpus is measured in
+@sec-corpus.
+
+## Shape grammars and L-systems
+
+Shape grammars [@stiny1972shape] generate designs by rewriting labelled
+shapes, and have been used to model historical ornament styles.
+L-systems [@prusinkiewicz1990algorithmic] rewrite strings that are
+interpreted as drawing commands and are well suited to branching,
+vine-like borders. Both are deterministic given a seed and rule weights,
+and both give explicit control of large-scale structure, but writing a
+grammar that captures a style is manual work.
+
+## Cellular automata
+
+Elementary cellular automata [@wolfram1983statistical; @wolfram2002new]
+produce rich binary patterns row by row, which matches the row-by-row nature
+of knitting. They are an interesting source of novel texture but they do not
+learn from examples, so "in the vein of Sjónabók" would have to be achieved
+by searching for rules whose output scores well against the corpus
+(@sec-evaluation).
+
+## Fit for this project
+
+Symmetry-group generation is the strongest candidate for the *structure*
+layer of a hybrid: it is trivial to implement, fully reproducible, and
+directly reflects how the corpus is built. Grammars are a possible later
+layer for banner composition. Cellular automata are a curiosity here.

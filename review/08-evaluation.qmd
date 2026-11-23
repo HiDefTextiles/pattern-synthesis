@@ -1,0 +1,27 @@
+# Evaluating "in the same vein" {#sec-evaluation}
+
+There is no single metric; a small battery computed in R against the
+corpus is more honest.
+
+* **Local pattern statistics.** KL divergence between the
+  $k \times k$ window distributions of output and corpus
+  [@lucas2019tile]. Cheap, interpretable, and the natural measure for a
+  WFC/MRF method.
+* **Novelty vs copying.** Largest window of the output that occurs
+  verbatim in the corpus, and the share of output covered by verbatim
+  copies. Guards against quilting or large-$N$ WFC simply reproducing a
+  source chart.
+* **Global structure.** Detected symmetry group and period
+  [@liu2004computational], fill ratio, motif count. Compare their
+  distributions to the corpus.
+* **Perceptual style.** Gram-matrix distance on CNN features
+  [@gatys2015texture], or SIFID as used by SinGAN [@shaham2019singan];
+  FID [@heusel2017gans] needs more samples than we have.
+* **Knittability.** Maximum float length per row (after margin trimming),
+  colours per row, isolated single stitches. These are pass/fail gates, not
+  style scores.
+* **Human judgement.** A small blind test with HiDEF members: corpus vs
+  generated, which is which. In the end this is the measure that matters.
+
+All metrics must be computed on outputs regenerated from stored seeds, so
+the evaluation itself is reproducible.

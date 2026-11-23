@@ -1,0 +1,44 @@
+# Texture synthesis and Markov random fields {#sec-texture}
+
+## Non-parametric sampling
+
+@efros1999texture grow a texture pixel by pixel, choosing each new value by
+sampling from input neighbourhoods that best match the already synthesised
+neighbourhood. This is a Markov random field (MRF) model with the
+conditional distribution estimated directly from the example.
+@wei2000fast made it fast with tree-structured vector quantisation and a
+fixed scan order. WFC's overlapping model can be read as the hard-constraint
+limit of the same idea: only exact neighbourhood matches are allowed.
+
+## Patch-based methods
+
+* **Image quilting** [@efros2001quilting] places whole input blocks with a
+  small overlap and cuts the overlap along a minimum-error boundary. It is
+  the simplest method that preserves whole motifs and produces seams that
+  can be controlled, which is exactly what banner blending needs
+  (@sec-banner).
+* **Graphcut textures** [@kwatra2003graphcut] generalise the seam to a
+  graph min-cut and allow patches of any shape.
+* **PatchMatch** [@barnes2009patchmatch] makes nearest-patch search fast
+  and underlies modern inpainting and reshuffling.
+* **Exemplar-based inpainting** [@criminisi2004region] fills a hole by
+  copying patches in an order driven by structure, which is a direct model
+  for "fill the gap between two fixed motifs".
+
+## MRF models more generally
+
+The classical statistical framing is @geman1984stochastic (Gibbs
+sampling, simulated annealing on MRFs). @paget1998texture use a
+non-causal, non-parametric multiscale MRF for texture synthesis, and
+@zhu1998frame (FRAME) fit maximum-entropy models matching filter
+statistics. These give a principled energy, $E(x) = \sum$ local
+mismatch, that can mix hard constraints (pinned motifs, symmetry) and soft
+style terms, and they can be sampled deterministically from a seed.
+
+## Fit for this project
+
+Binary charts are a very easy case for these methods: the alphabet is two
+symbols, the grid is small, and exact matching is cheap. Image quilting or
+an MRF with pinned regions is the most direct way to get the "blend between
+motifs" behaviour. The main risk is verbatim copying: with a small corpus
+quilting can reproduce large chunks of a single source chart.

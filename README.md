@@ -1,0 +1,53 @@
+# pattern-synthesis
+
+Reproducible generation of new knitting patterns in the vein of
+*Íslensk sjónabók*, the Icelandic pattern collection digitised in
+[HiDefTextiles/Sjonabok](https://github.com/HiDefTextiles/Sjonabok).
+
+Goal: given a seed and a configuration, produce the same new two-colour chart
+every time, built from the corpus's motifs and style. The first concrete target
+is a long **banner** (in the spirit of a *refilsaumur* hanging) that contains
+the main Sjónabók motifs and blends smoothly between them.
+
+The method is deliberately open. The literature review in `review/` compares
+wave function collapse, texture synthesis, symmetry and grammar based
+generation, and learned models, and argues for a composable pipeline (see
+`review/09-recommendation.qmd`). **No generator is implemented yet**; see
+[`TODO.md`](TODO.md) for the decisions to make first.
+
+This repository is meant to become a git submodule of the HiDEF site
+(HiDefTextiles/hidefTextiles.github.io).
+
+## Layout
+
+| Path | Purpose |
+|------|---------|
+| `data/sjonabok/` | Submodule: HiDefTextiles/Sjonabok (input corpus, `patterns/txt/*.txt`, 0/1 matrices) |
+| `src/`, `include/` | C++ core (later): pattern type, seeded RNG, synthesis stages |
+| `python/` | Exploration and prototypes |
+| `R/` | tidyverse analysis of the corpus and of generated output |
+| `scripts/` | Small shell helpers called from the Makefile |
+| `review/` | Quarto book: literature review and recommendation |
+| `out/` | Generated files (git-ignored) |
+
+## Usage
+
+```sh
+git clone --recurse-submodules https://github.com/HiDefTextiles/pattern-synthesis-
+make stats      # corpus sizes and fill ratios -> out/corpus-stats.tsv
+make review     # render the Quarto book -> review/_book/
+make preview    # live preview of the book
+```
+
+## Pattern format
+
+Inherited from Sjonabok: one text file per pattern, one line per row, `1` =
+contrast colour (black in the source), `0` = background, no header. Files are
+named `<source>_<page>[_pN].txt`, where `_pN` is a sub-pattern split from a
+page.
+
+## Licence
+
+GPL-3.0, matching Sjonabok and the site. The Sjónabók designs themselves come
+from Heimilisiðnaðarfélag Íslands, Listaháskóli Íslands and Þjóðminjasafn
+Íslands; see `TODO.md` about permission for derived works.

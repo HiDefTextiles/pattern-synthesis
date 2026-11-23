@@ -1,0 +1,53 @@
+# Banner: motifs, blending and layout {#sec-banner}
+
+The concrete target is a long banner that contains the main Sjónabók
+motifs and moves smoothly from one to the next, in the spirit of a
+refilsaumur hanging. This splits into three problems.
+
+## 1. Motif extraction and clustering
+
+* **Cut motifs.** Start from the `_pN` splits (@sec-corpus), then
+  curate. Connected components with a dilation radius are the simplest
+  automatic cut; the alphabet pages already have a label map.
+* **Canonicalise.** Detect each motif's symmetry and reduce it to a
+  fundamental region plus group (@sec-symmetry), so mirrored or rotated
+  copies collapse together.
+* **Describe and cluster.** Simple descriptors (size, fill ratio,
+  symmetry group, $k \times k$ pattern histograms as in WFC
+  [@gumin2016wfc; @lucas2019tile]) clustered with k-medoids or
+  hierarchical clustering in R, to pick "the main motifs" and to
+  define a similarity graph for ordering them. The final list of main
+  motifs should be Helga's choice, assisted by the clusters.
+
+## 2. Blending between fixed motifs
+
+Pin each chosen motif at its position and synthesise the gaps. Candidate
+fillers, all of which accept fixed cells:
+
+* **Constrained WFC.** Pre-collapse the motif cells, run the overlapping
+  model on the rest [@gumin2016wfc; @karth2022wfc]. Patterns extracted
+  from *both* neighbouring motifs (or their sources) give a transition
+  that borrows from each side. Weighting the catalogue by distance to
+  each motif makes the style drift across the gap.
+* **Quilting seams.** Overlap the neighbouring motifs' extended texture
+  and cut along a minimum-error seam [@efros2001quilting;
+  @kwatra2003graphcut].
+* **Exemplar inpainting.** Treat the gap as a hole
+  [@criminisi2004region]; later, a diffusion inpainter
+  [@lugmayr2022repaint] if a model ever exists.
+* **Latent interpolation.** Decode points between two motifs' latent
+  codes [@kingma2014vae]. Smooth, but needs a model and data.
+
+## 3. Layout
+
+* **Long aspect ratio.** The banner is a frieze. Choosing a frieze group
+  for the background band(s) fixes rhythm and symmetry cheaply
+  [@grunbaum1987tilings].
+* **Horizontal tiling.** If the banner should repeat seamlessly (or
+  wrap around a garment), use a periodic boundary in the synthesis step.
+* **Machine width.** Width in needles and length in rows are bounded by
+  the machine and by the jacquard pattern memory or the download path
+  used (see `TODO.md`).
+* **Composition.** A simple sequence (motif, transition, motif, ...)
+  on a centre line with border bands top and bottom matches many
+  historical pieces; a grammar can generalise this later.

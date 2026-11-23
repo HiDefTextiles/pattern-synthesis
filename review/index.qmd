@@ -1,0 +1,24 @@
+# Preface {.unnumbered}
+
+This book collects the background needed before writing a generator that
+produces new two-colour charts "in the same vein" as *Íslensk sjónabók*
+[@sjonabok2009], and in particular a long banner that carries the main
+motifs of the collection and blends between them.
+
+Scope decided so far:
+
+* **Reproducible.** Every output is a pure function of (corpus version,
+  configuration, seed). The corpus is pinned as a git submodule.
+* **Method-agnostic.** Wave function collapse (WFC) is one candidate, not a
+  requirement. Hybrids are expected.
+* **Machine-aware.** Output must be knittable as two-colour jacquard on the
+  HiDEF Passap E6000 setup.
+
+Conventions. Every citation is to a source we could locate. Where a
+bibliographic detail (year, venue, page) has not been checked against the
+original, the entry carries a `note = {unverified: ...}` field and the text
+says *(unverified)*.
+
+Chapter 1 describes the corpus. Chapters 2 to 5 review generation methods,
+chapter 6 knitting-specific work, chapter 7 the banner problem, chapter 8
+evaluation, and chapter 9 gives a recommendation.

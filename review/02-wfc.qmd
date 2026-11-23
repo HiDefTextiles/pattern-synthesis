@@ -1,0 +1,84 @@
+# Wave function collapse and model synthesis {#sec-wfc}
+
+## Origins
+
+WaveFunctionCollapse (WFC) was released by Maxim Gumin in 2016 as an
+open-source program that "generates bitmaps that are locally similar to the
+input bitmap" [@gumin2016wfc]. It was preceded, and largely anticipated, by
+Paul Merrell's *model synthesis* [@merrell2007model; @merrell2008continuous;
+@merrell2011model], which generates 3D models from an example by enforcing
+adjacency constraints between labelled cells. Merrell later wrote a direct
+comparison of the two [@merrell2021comparing], arguing that WFC is
+essentially model synthesis with a different cell-selection order and that
+model synthesis's *modify in blocks* strategy scales better to large
+outputs.
+
+## The algorithm in brief
+
+1. **Extract** a set of patterns from the example and an adjacency relation
+   between them.
+2. **Initialise** an output grid where every cell may hold any pattern (the
+   "superposition").
+3. **Observe**: choose an undecided cell, typically the one of minimum
+   entropy, and fix it to one pattern sampled by frequency.
+4. **Propagate**: remove patterns from neighbours that are no longer
+   compatible, repeatedly, until a fixed point (arc consistency).
+5. Repeat until every cell is decided, or a cell has no options left
+   (contradiction).
+
+## Overlapping vs simple tiled model
+
+* **Overlapping model.** Every $N \times N$ window of the input (optionally
+  with its rotations and reflections) is a pattern; two patterns are
+  adjacent if they agree on their overlap. Output is "locally similar": every
+  $N \times N$ window of the output occurs in the input
+  [@gumin2016wfc]. With $N=2$ or $3$ on a binary chart this captures stitch
+  texture but not whole motifs; larger $N$ copies more of the input
+  verbatim.
+* **Simple tiled model.** The user supplies tiles and explicit adjacency
+  rules (with symmetry classes). There is no learning from an example; it is
+  closer to Wang tiles. Suitable when motifs are already cut into
+  compatible pieces.
+
+For Sjónabók the overlapping model is the natural fit for *texture* (fill
+regions, borders), while the tiled model fits *composition* (which motif goes
+next to which) once motifs have been extracted and given edge labels.
+
+## WFC as constraint solving
+
+@karth2017wfc showed that WFC is a constraint satisfaction problem (CSP)
+solved with a particular heuristic, re-implemented it in answer set
+programming, and connected it to the CSP literature; their later journal
+paper [@karth2022wfc] extends this, discusses learning the constraints from
+positive and negative examples, and surveys uses in games. Seen this way:
+
+* **Propagation** is arc consistency, AC-3 style [@mackworth1977consistency].
+* **Minimum entropy** is a weighted form of the *minimum remaining values*
+  / fail-first heuristic [@haralick1980increasing].
+* **Contradiction handling** in the original is *restart*. Backtracking,
+  backjumping, or Merrell's local block re-synthesis are the standard
+  alternatives; any of them can be made deterministic given a seed.
+
+## Heuristics that matter in practice
+
+* **Cell choice.** Minimum entropy tends to grow output from seeds
+  outward; scanline order (as in early model synthesis) is cheaper and
+  gives more "directional" output.
+* **Pattern choice.** Sampling by input frequency reproduces the input's
+  statistics; reweighting is an easy control knob (e.g. towards motifs
+  wanted in a given section of a banner).
+* **Global constraints.** Plain WFC cannot enforce "exactly one rose
+  here" or "symmetric about this axis". These are usually added as
+  pre-constrained cells (pinning), or as extra constraints in a general
+  solver [@sandhu2019enhancing; @karth2022wfc].
+* **Periodicity.** Wrapping the output grid gives seamless horizontal
+  tiling for free, which a banner may want.
+
+## Fit for this project
+
+Strengths: tiny, deterministic with a seeded RNG, output is guaranteed to
+be locally plausible, pinning cells is the natural way to place fixed
+motifs. Weaknesses: no notion of large-scale structure or symmetry,
+contradictions on hard inputs, and with a corpus of 600 small pieces the
+pattern catalogue must be built carefully (per source, per band type)
+or the output mixes incompatible styles.

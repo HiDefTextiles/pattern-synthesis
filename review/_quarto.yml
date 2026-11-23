@@ -1,0 +1,30 @@
+project:
+  type: book
+  output-dir: _book
+
+book:
+  title: "Generating Sjónabók-style patterns"
+  subtitle: "Literature review and pre-implementation plan"
+  author: "HiDEF Textiles"
+  date: "2026-11-23"
+  chapters:
+    - index.qmd
+    - 01-corpus.qmd
+    - 02-wfc.qmd
+    - 03-texture-synthesis.qmd
+    - 04-symmetry-grammars.qmd
+    - 05-learned-models.qmd
+    - 06-knitting.qmd
+    - 07-banner-blending.qmd
+    - 08-evaluation.qmd
+    - 09-recommendation.qmd
+    - references.qmd
+
+bibliography: references.bib
+lang: en
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt

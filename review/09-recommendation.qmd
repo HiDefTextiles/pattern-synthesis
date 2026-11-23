@@ -1,0 +1,51 @@
+# Recommendation {#sec-recommendation}
+
+## A composable pipeline, not one algorithm
+
+Each family above is good at one thing. The recommendation is a pipeline
+of small stages that share **one pattern type** and **one seeded RNG**:
+
+```
+corpus ──► motif library ──► layout ──► structure ──► texture ──► repair ──► export
+           (cut, canonical-   (banner    (symmetry    (constrained (float/    (txt, png,
+            ise, cluster)      sequence)  group fill)  WFC / MRF / colour     machine)
+                                                       quilting)   checks)
+```
+
+1. **Motif library** (offline, Python + R): curated motifs with symmetry
+   group, fundamental region and descriptors (@sec-banner).
+2. **Layout**: place chosen motifs along the banner, choose border bands and
+   frieze groups. Deterministic from config + seed.
+3. **Structure**: for any *new* motif or band, generate only the
+   fundamental region and expand by the group (@sec-symmetry).
+4. **Texture / blending**: fill free cells with the **overlapping WFC model
+   with pinned cells** as the first filler, because it is small,
+   exact on binary data and naturally respects fixed motifs
+   (@sec-wfc). Keep image quilting as the second filler behind the same
+   interface, to compare (@sec-texture).
+5. **Repair**: enforce machine rules (float length or backing choice,
+   isolated stitches) with a local re-synthesis pass, as in Merrell's
+   modify-in-blocks [@merrell2021comparing].
+6. **Export**: the Sjonabok `.txt` format, PNG previews for the site, and
+   the machine format.
+
+Learned models (@sec-learned) are left out of version 1 and can be added
+later as an alternative filler or as a critic.
+
+## Reproducibility
+
+* One `Rng` object (e.g. `std::mt19937_64` or PCG) seeded from the config,
+  passed explicitly to every stage; each stage derives its own sub-seed
+  from (seed, stage name) so stages can be changed independently.
+* Output metadata records corpus commit (submodule SHA), config hash,
+  seed and program version.
+* No floating-point-order or hash-map-iteration dependence in the core
+  (C++); Python and R only read the outputs.
+
+## Language split
+
+C++ for the core stages (object-oriented: `Pattern`, `MotifLibrary`,
+`Layout`, `Filler` with `WfcFiller` / `QuiltFiller`, `Repair`,
+`Exporter`), Python for exploration and motif cutting, R/tidyverse for
+corpus statistics and evaluation, Make + shell to drive it, Quarto for
+the reports.
