@@ -277,6 +277,8 @@ def main() -> None:
     ap.add_argument("--slots", type=int, default=6)
     ap.add_argument("--out", type=Path, default=Path("out/banners"))
     ap.add_argument("--far", type=int, default=1000, help="also render slots starting here")
+    ap.add_argument("--colour", action="store_true",
+                    help="also apply the (provisional) colour plan; patterns come first")
     args = ap.parse_args()
 
     corpus = Corpus(CORPUS_DIR)
@@ -289,24 +291,28 @@ def main() -> None:
         windows = [(0, args.slots)]
         if name == "mix":
             windows.append((args.far, args.far + 3))
-        by = None
-        if cfg["kind"] == "manuscripts":
-            by = lambda k, b=banner: source_of(b.motif(k)[1].replace("new~", ""))
-            by = (lambda f: (lambda k: sum(map(ord, f(k)))))(by)
-        plan = ColourPlan(cfg["seed"], by=by)
+        plan = None
+        if args.colour:                                   # optional later stage
+            by = None
+            if cfg["kind"] == "manuscripts":
+                by = lambda k, b=banner: sum(map(ord, source_of(b.motif(k)[1].replace("new~", ""))))
+            plan = ColourPlan(cfg["seed"], by=by)
         for first, last in windows:
             chart, gen, owner = banner.render(first, last)
-            coloured = plan.apply(chart, owner)
-            per_row = ColourPlan.colours_per_row(coloured)
             stem = f"{name}_seed{cfg['seed']}_slots{first}-{last}"
-            Pattern(stem, coloured).save_txt(args.out / f"{stem}.txt")
-            Pattern(stem, coloured).save_png(args.out / f"{stem}_knit.png", PALETTE4, zoom=5)
-            Pattern(stem, chart).save_png(args.out / f"{stem}_2c.png", PALETTE2, zoom=5)
+            Pattern(stem, chart).save_txt(args.out / f"{stem}.txt")
+            Pattern(stem, chart).save_png(args.out / f"{stem}.png", PALETTE2, zoom=5)
             Pattern(stem, np.where(chart == 1, np.where(gen, 3, 1), 0).astype(np.uint8)).save_png(
                 args.out / f"{stem}_origin.png", ORIGIN, zoom=5)
-            print(f"{stem}: {chart.shape[0]} needles x {chart.shape[1]} rows; "
-                  f"rows with 3 colours: {(per_row > 2).sum()}; motifs:",
+            extra = ""
+            if plan:
+                coloured = plan.apply(chart, owner)
+                Pattern(stem, coloured).save_txt(args.out / f"{stem}_colour.txt")
+                Pattern(stem, coloured).save_png(args.out / f"{stem}_colour.png", PALETTE4, zoom=5)
+                extra = f"; rows with 3 colours: {(ColourPlan.colours_per_row(coloured) > 2).sum()}"
+            print(f"{stem}: {chart.shape[0]} needles x {chart.shape[1]} rows{extra}; motifs:",
                   ", ".join(banner.labels(first, last)))
+
 
 if __name__ == "__main__":
     main()

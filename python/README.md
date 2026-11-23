@@ -7,5 +7,6 @@ Exploratory Python (numpy, Pillow).
   window renders on its own. Presets: `manuscripts` (runs from one manuscript,
   seamless switch), `mix` (pure mix), `derived` (every other motif is new,
   generated from one manuscript's motifs and made D4-symmetric).
-  `ColourPlan` gives each knitted row background + one contrast colour, with a
+  Output is two-colour (pattern first). `--colour` applies the provisional
+  `ColourPlan`, a separate later stage: it gives each knitted row background + one contrast colour, with a
   short dithered three-colour switch; four colours in total.

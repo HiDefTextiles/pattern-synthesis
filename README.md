@@ -14,8 +14,8 @@ wave function collapse, texture synthesis, symmetry and grammar based
 generation, and learned models, and argues for a composable pipeline (see
 `review/09-recommendation.qmd`). A first **Python prototype** (`python/banner.py`, `make banners`) renders an
 endless, seeded banner: border bands, Sjónabók motifs pinned on a centre line,
-overlapping WFC filling the stretches between them, and a colour plan with two
-colours per knitted row. Previews are in `previews/`. The C++ core comes after
+overlapping WFC filling the stretches between them, with two-colour output (colouring is a
+separate, later stage). Previews are in `previews/`. The C++ core comes after
 the decisions in [`TODO.md`](TODO.md).
 
 This repository is meant to become a git submodule of the HiDEF site
