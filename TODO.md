@@ -23,13 +23,14 @@ Short list for Helga. Background for each item is in the Quarto review (`review/
    Also: how to map the binary Sjónabók charts to 3 or 4 colours (by region, by row
    band, or by motif).
 
-5. **Banner layout.** Target size in stitches and rows, whether it must repeat
-   seamlessly horizontally, whether it has top and bottom border bands, and
-   whether motifs sit on one centre line or vary.
+5. **Banner layout.** Decided (Helga, 2026-11-23): top and bottom border bands.
+   Still open: target size in rows, whether it must repeat seamlessly horizontally,
+   and whether motifs sit on one centre line or vary.
 
-6. **What "same vein" means to you.** Should output mix sources (e.g. natmus453
-   with thjms5898) or stay within one? How much verbatim copying is acceptable?
-   Agree on a small evaluation set and a blind test with HiDEF members.
+6. **What "same vein" means.** Decided (Helga, 2026-11-23): motifs may be used as
+   they are, or be mostly new but carry the "DNA" of the originals. So verbatim
+   copying is allowed, and the copy/novelty ratio becomes a setting rather than a
+   limit. Still open: may one banner mix sources (e.g. natmus453 with thjms5898)?
 
 7. **Method for version 1.** Recommendation (chapter 9): symmetry-group structure
    plus overlapping WFC with pinned motifs as the blender, image quilting as a second

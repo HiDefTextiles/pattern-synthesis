@@ -10,7 +10,9 @@ corpus is more honest.
 * **Novelty vs copying.** Largest window of the output that occurs
   verbatim in the corpus, and the share of output covered by verbatim
   copies. Guards against quilting or large-$N$ WFC simply reproducing a
-  source chart.
+  source chart. Since verbatim motifs are allowed (Helga, 2026-11-23),
+  this is reported per region (original vs derived slots), not used as a
+  pass/fail gate.
 * **Global structure.** Detected symmetry group and period
   [@liu2004computational], fill ratio, motif count. Compare their
   distributions to the corpus.

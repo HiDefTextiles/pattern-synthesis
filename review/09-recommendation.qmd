@@ -31,6 +31,12 @@ corpus ──► motif library ──► layout ──► structure ──► te
 7. **Export**: the Sjonabok `.txt` format, PNG previews for the site, and
    the machine format.
 
+Each banner slot holds either an **original motif** taken as it is from
+the library, or a **derived motif** generated from one or more originals
+(same symmetry group and local statistics, new arrangement). Helga
+(2026-11-23) allows both, so the mix is a configuration setting. Top and
+bottom border bands are part of the default layout.
+
 Learned models (@sec-learned) are left out of version 1 and can be added
 later as an alternative filler or as a critic.
 
