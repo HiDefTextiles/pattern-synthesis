@@ -1,6 +1,6 @@
 """Prototype: an endless, seeded Sjónabók banner (refill).
 
-Layout, across the banner (needle direction, must stay <= 179):
+Layout, across the banner (needle direction, default 85, machine max 179):
     border band | spacer | centre strip with motifs | spacer | border band
 Along the banner (row direction) the motif slots k = 0, 1, 2, ... never end.
 
@@ -111,7 +111,7 @@ class Banner:
     band: Pattern                   # one period of the border band
     strip: int = 45                 # centre strip height (cells across)
     gap: int = 14                   # free columns between neighbouring motifs
-    spacer: int = 3
+    needles: int = 85               # total knit width; spacers absorb the slack
     n: int = 3
     extras_per_source: int = 3
     corpus: Corpus | None = None
@@ -217,10 +217,15 @@ class Banner:
         phase = int(sub_rng(self.seed, 5, first).integers(tile.shape[1])) if first else 0
         cols = (np.arange(centre.shape[1]) + phase) % tile.shape[1]
         band = tile[:, cols]
-        space = np.zeros((self.spacer, centre.shape[1]), dtype=np.uint8)
-        chart = np.vstack([band, space, centre, space, band[::-1]])
-        gmask = np.vstack([np.zeros_like(band, bool), np.zeros_like(space, bool), generated,
-                           np.zeros_like(space, bool), np.zeros_like(band, bool)])
+        slack = self.needles - self.strip - 2 * band.shape[0]
+        if slack < 0:
+            raise ValueError(f"band too tall for {self.needles} needles")
+        s1, s2 = slack // 2, slack - slack // 2
+        sp1 = np.zeros((s1, centre.shape[1]), dtype=np.uint8)
+        sp2 = np.zeros((s2, centre.shape[1]), dtype=np.uint8)
+        chart = np.vstack([band, sp1, centre, sp2, band[::-1]])
+        gmask = np.vstack([np.zeros_like(band, bool), np.zeros_like(sp1, bool), generated,
+                           np.zeros_like(sp2, bool), np.zeros_like(band, bool)])
         assert chart.shape[0] <= MAX_NEEDLES, chart.shape
         return chart, gmask, np.array(owner)
 
