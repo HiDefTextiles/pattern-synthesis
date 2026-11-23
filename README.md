@@ -50,4 +50,5 @@ page.
 
 GPL-3.0, matching Sjonabok and the site. The Sjónabók designs themselves come
 from Heimilisiðnaðarfélag Íslands, Listaháskóli Íslands and Þjóðminjasafn
-Íslands; see `TODO.md` about permission for derived works.
+Íslands. The patterns are public domain; generated output should still credit
+the Sjónabók and the original source number.

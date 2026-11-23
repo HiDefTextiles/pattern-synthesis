@@ -2,11 +2,11 @@
 
 Short list for Helga. Background for each item is in the Quarto review (`review/`).
 
-1. **Permission for derived works.** Ask Heimilisiðnaðarfélag Íslands,
-   Listaháskóli Íslands and Þjóðminjasafn Íslands whether generating new designs
-   from the Sjónabók charts, and publishing them on the site, is fine, and what
-   credit line they want. The `.txt` matrices are already public in
-   HiDefTextiles/Sjonabok; the `.eps` from the CD are not, and should stay out.
+1. **Credit line.** The Sjónabók patterns are public domain (Helga, 2026-11-23), so
+   no permission is needed. Decide only how generated work credits the source
+   (Heimilisiðnaðarfélag Íslands, Listaháskóli Íslands, Þjóðminjasafn Íslands and the
+   original manuscript or museum number). Keep the `.eps` files from the CD out of git
+   unless their own licence is also clear.
 
 2. **Curate the corpus.** The `_pN` splits are automatic and sometimes cut or merge
    motifs. Decide whether a one-off manual pass (keep, merge, drop, label as band or
