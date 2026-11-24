@@ -11,11 +11,11 @@
 // Viewer colours are read by the script, so they live in CSS variables
 :root {
   --bv-ground: #ffffff;
-  --bv-ground-new: #ecebfa;
-  --bv-copied: #b5b3ad;
+  --bv-ground-new: #ecebfa;  // HÍ blue at 8% on white (the script needs hex)
+  --bv-copied: #2DD2C0;   // HÍ teal
   --bv-stitch: #262626;
-  --bv-new: #10099F;
-  --bv-echo: #FFA05F;
+  --bv-new: #10099F;      // HÍ blue
+  --bv-echo: #FFA05F;     // HÍ orange
 }
 
 .banner-viewer {
@@ -31,17 +31,18 @@
   }
   .bv-seg button[aria-pressed="true"] { background: $hi-blue; color: $hi-white; }
   .bv-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .bv-chips button { border: 1px solid #c9c7c0; }
+  .bv-chips button { border: 1px solid $hi-panel; }
   .bv-chips button[aria-pressed="true"] { border-color: $hi-blue; background: var(--bv-ground-new); }
   button:focus-visible, input:focus-visible { outline: 2px solid $hi-teal; outline-offset: 2px; }
+  .bv-zoom input { accent-color: $hi-blue; }
   .bv-zoom { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; }
   .bv-legend { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; font-size: 0.85rem; }
   .bv-legend span { display: inline-flex; align-items: center; gap: 0.35rem; }
-  .bv-sw { width: 0.85rem; height: 0.85rem; display: inline-block; border: 1px solid #c9c7c0; }
-  .bv-meter { display: flex; height: 0.5rem; max-width: 32rem; background: #e6e5e0; }
+  .bv-sw { width: 0.85rem; height: 0.85rem; display: inline-block; border: 1px solid $hi-panel; }
+  .bv-meter { display: flex; height: 0.5rem; max-width: 32rem; background: $hi-panel; }
   .bv-meter i { display: block; height: 100%; }
   .bv-stats { font-family: $font-family-monospace; font-size: 0.8rem; color: #555; display: flex; flex-wrap: wrap; gap: 0.2rem 1.2rem; font-variant-numeric: tabular-nums; }
-  .bv-chart { overflow-x: auto; border: 1px solid #d9d7d0; padding: 0.5rem; background: var(--bv-ground); }
+  .bv-chart { overflow-x: auto; border: 1px solid $hi-panel; padding: 0.5rem; background: var(--bv-ground); }
   .bv-chart canvas { display: block; image-rendering: pixelated; }
   .bv-caption { font-size: 0.8rem; color: #666; overflow-wrap: anywhere; }
 }
