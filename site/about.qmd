@@ -7,7 +7,7 @@ title: "About"
 This site belongs to [HiDefTextiles/pattern-synthesis](https://github.com/HiDefTextiles/pattern-synthesis), part of [HiDef Textiles](https://hideftextiles.github.io/), a research project at the University of Iceland on machine knitting. The source charts come from the [Sjónabók repository](https://github.com/HiDefTextiles/Sjonabok), which is included as a git submodule, and can be browsed in the [Sjónabók gallery](https://hideftextiles.github.io/Sjonabok/).
 
 ::: {.heimild}
-The source patterns are centuries old and in the **public domain**. The new patterns are by Helga Ingimundardóttir, Háskóli Íslands, released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The charts were digitised by HiDef Textiles in 2024 by Snæfríður Ebba Ásgeirsdóttir and Helga Ingimundardóttir, in Snæfríður's summer project on knitting Sjónabók patterns on the Passap E6000 [@nsn2024]. Each banner records the original manuscripts it draws on.
+The source patterns are centuries old and in the **public domain**. The new patterns are by Helga Ingimundardóttir, Háskóli Íslands, released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The charts were digitised by HiDef Textiles in 2024 by Snæfríður Ebba Ásgeirsdóttir and Helga Ingimundardóttir, in Snæfríður's summer project on knitting Sjónabók patterns on the Passap E6000 [@nsn2024]. They were digitised from the pattern files on the CD that comes with the 2009 book [@sjonabok]. Each banner records the original manuscripts it draws on.
 
 Short credit: *Pattern by Helga Ingimundardóttir, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), after Þjms. 1105* (use the museum numbers listed for the banner).
 :::
@@ -34,3 +34,8 @@ make docs-preview
 ```
 
 The code is in `python/`: `banner.py` lays out the banner, `fillers.py` holds the methods, and `explainer_data.py` produces the charts shown here.
+
+## References
+
+::: {#refs}
+:::
