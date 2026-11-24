@@ -28,8 +28,8 @@ This repository is meant to become a git submodule of the HiDEF site
 `site/` is a Quarto website with the same HÍ look as the
 [Sjónabók gallery](https://hideftextiles.github.io/Sjonabok/): one page per
 method in plain words, each with an interactive banner, plus the literature
-review. It will be published at https://hideftextiles.github.io/pattern-synthesis/
-once the Pages workflow is added.
+review. It is published at https://hideftextiles.github.io/pattern-synthesis/;
+`.github/workflows/docs.yml` rebuilds it on every push to `main`.
 
 ```sh
 make docs-data   # generate site/data/banners.json (about two minutes)
@@ -53,7 +53,7 @@ make docs-preview
 ## Usage
 
 ```sh
-git clone --recurse-submodules https://github.com/HiDefTextiles/pattern-synthesis-
+git clone --recurse-submodules https://github.com/HiDefTextiles/pattern-synthesis
 make stats      # corpus sizes and fill ratios -> out/corpus-stats.tsv
 make banners    # prototype banners -> out/banners/ (needs numpy, Pillow)
 make banner SEED=1 FIRST=0   # one knitted piece + chart, provenance and validation files
