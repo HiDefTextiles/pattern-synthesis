@@ -24,7 +24,7 @@ from validate import Settings, validate
 
 GENERATOR_VERSION = "0.1.0"
 CREATOR = "Helga Ingimundardóttir, Háskóli Íslands"
-DIGITISED_BY = "HiDef Textiles"
+DIGITISED_BY = "HiDef Textiles (Snæfríður Ebba Ásgeirsdóttir and Helga Ingimundardóttir)"
 INSTITUTIONS = ["Heimilisiðnaðarfélag Íslands", "Listaháskóli Íslands", "Þjóðminjasafn Íslands"]
 
 
