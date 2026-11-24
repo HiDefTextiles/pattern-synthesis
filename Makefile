@@ -2,7 +2,7 @@
 CORPUS := data/sjonabok/patterns/txt
 OUT    := out
 
-.PHONY: all data stats banners compare review docs-data docs docs-preview docs-clean preview clean
+.PHONY: all data stats banners banner compare review docs-data docs docs-preview docs-clean preview clean
 
 all: stats review
 
@@ -18,6 +18,12 @@ stats: data | $(OUT)
 
 banners: data | $(OUT)
 	python3 python/banner.py --preset all --slots 9 --far 1000 --out $(OUT)/banners
+
+# One knitted piece with the full version-1 output set (settings: banner.yml)
+SEED ?= 1
+FIRST ?= 0
+banner: data | $(OUT)
+	python3 python/make_banner.py --seed $(SEED) --first $(FIRST) --out $(OUT)/banner-seed$(SEED)-from$(FIRST)
 
 compare: data | $(OUT)
 	python3 python/banner.py --filler compare --slots 4 --out $(OUT)/compare
