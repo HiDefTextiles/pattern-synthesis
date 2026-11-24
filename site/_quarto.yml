@@ -49,6 +49,9 @@ website:
         href: roadmap.qmd
       - text: "About"
         href: about.qmd
+    right:
+      - text: "Sjónabók gallery"
+        href: https://hideftextiles.github.io/Sjonabok/
     tools:
       - icon: github
         href: https://github.com/HiDefTextiles/pattern-synthesis
