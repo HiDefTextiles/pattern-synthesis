@@ -61,3 +61,13 @@
 
 // Long URLs in reference lists wrap instead of widening the page.
 .csl-entry { overflow-wrap: anywhere; }
+
+// Frames page: three corner types, one column on a phone, three on a wide screen.
+.frames-viewer {
+  .fv-controls { display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; align-items: center; margin-bottom: 0.5rem; }
+  .fv-controls select { font: inherit; font-size: 0.9rem; max-width: 100%; }
+  .fv-controls label { display: inline-flex; gap: 0.5rem; align-items: center; max-width: 100%; }
+  .fv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1rem; }
+  .fv-grid img { width: 100%; height: auto; image-rendering: pixelated; border: 1px solid $hi-panel; }
+  .fv-grid figcaption { font-size: 0.85rem; margin-top: 0.35rem; }
+}

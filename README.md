@@ -24,6 +24,7 @@ make banner         # one knitted piece -> out/banner-seed1-from0/
 |---|---|
 | `make banner SEED=7` | A banner piece from another seed |
 | `make banner FIRST=100` | A piece further along the same endless banner |
+| `make frame BAND=thjms1105_38_p2 CUT=best` | A frame from four border bands, with mitre, motif and grown corners |
 | `make clear RING=1` | Motif templates with their empty space marked as `.` |
 | `make banners` | Preview banners for every preset in `out/banners/` |
 | `make compare` | The same banner with every fill method, side by side |

@@ -33,4 +33,5 @@ Quarto review (`review/`).
 - [x] Output set and provenance sidecar (`banner.meta.json`).
 - [ ] Source scope setting (single manuscript by default) and bounded transition masks in the endless layout.
 - [ ] Row-band palette schedule with accent mask (after the pattern work).
+- [x] Frames from four border bands with three corner types (`make frame`, docs page).
 - [ ] Machine adapters, one per transfer path, each with an end-to-end test.
