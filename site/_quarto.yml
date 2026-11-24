@@ -53,9 +53,9 @@ website:
         aria-label: GitHub
   page-footer:
     left: |
-      Source charts from *Íslensk sjónabók* (Heimilisiðnaðarfélag Íslands, Listaháskóli Íslands,
-      Þjóðminjasafn Íslands), digitised by Helga Ingimundardóttir, Háskóli Íslands ([HiDef Textiles](https://hideftextiles.github.io/)).
-      The patterns are centuries old and in the public domain; derived patterns are [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+      New patterns by Helga Ingimundardóttir, Háskóli Íslands (2026), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Derived from public-domain
+      patterns in *Íslensk sjónabók* (Heimilisiðnaðarfélag Íslands, Listaháskóli Íslands, Þjóðminjasafn Íslands, 2009),
+      digitised by [HiDef Textiles](https://hideftextiles.github.io/) (2024).
     right:
       - text: "Sjónabók gallery"
         href: https://hideftextiles.github.io/Sjonabok/
