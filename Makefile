@@ -1,5 +1,5 @@
 # pattern-synthesis workflow
-CORPUS := data/sjonabok/patterns/txt
+CORPUS := data/sjonabok/patterns/min
 OUT    := out
 
 .PHONY: help setup all data stats banners banner clear compare review docs-data docs docs-preview docs-clean preview clean

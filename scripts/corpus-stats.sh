@@ -1,7 +1,7 @@
 #!/bin/sh
 # Print width, height and fill ratio of every Sjónabók matrix as TSV.
-# Usage: scripts/corpus-stats.sh [dir]   (default: data/sjonabok/patterns/txt)
-dir=${1:-data/sjonabok/patterns/txt}
+# Usage: scripts/corpus-stats.sh [dir]   (default: data/sjonabok/patterns/min)
+dir=${1:-data/sjonabok/patterns/min}
 printf 'file\twidth\theight\tones\n'
 for f in "$dir"/*.txt; do
   awk -v f="$(basename "$f")" '

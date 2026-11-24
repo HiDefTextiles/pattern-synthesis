@@ -24,7 +24,7 @@ from sjonabok import Corpus, Pattern
 from fillers import FILLERS, Filler, WfcFiller
 from wfc import Contradiction, OverlapModel, OverlapSolver
 
-CORPUS_DIR = Path("data/sjonabok/patterns/txt")
+CORPUS_DIR = Path("data/sjonabok/patterns/min")
 MAX_NEEDLES = 179
 # yarn preview palette: background + three contrasts (four colours in total)
 PALETTE4 = [(240, 232, 214), (122, 30, 38), (34, 52, 99), (176, 120, 30)]

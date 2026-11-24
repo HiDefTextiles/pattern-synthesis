@@ -13,7 +13,8 @@ book ships with a CD of `.eps` figures.
 Two copies exist:
 
 * **HiDefTextiles/Sjonabok on GitHub** (pinned here as
-  `data/sjonabok`): 600 `patterns/txt/*.txt` files and the Python
+  `data/sjonabok`): 600 `patterns/min/*.txt` files (bands stored as one
+  repeat unit, listed in `patterns/repeats.csv`) and the Python
   converters. No EPS files are published.
 * **Helga's local working copy** (`Documents/Sjonabok`): additionally
   holds the source `.eps` (258 pattern pages, 50 alphabet pages,

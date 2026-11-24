@@ -101,7 +101,23 @@ class Corpus:
     """All charts in the Sjonabok submodule, with simple classification."""
 
     def __init__(self, directory: Path):
-        self.patterns = {p.stem: Pattern.load(p).trimmed() for p in sorted(directory.glob("*.txt"))}
+        """Read patterns/min/ and, if present, ../repeats.csv.
+
+        Repeat units (status "unit") are kept as stored: their empty edge columns
+        are part of the repeat. Every other chart is trimmed to its content."""
+        self.repeats: dict[str, dict] = {}
+        csv = directory.parent / "repeats.csv"
+        if csv.exists():
+            lines = csv.read_text().splitlines()
+            head = lines[0].split(",")
+            self.repeats = {r[0]: dict(zip(head, r)) for r in (l.split(",") for l in lines[1:] if l)}
+        self.patterns = {}
+        for path in sorted(directory.glob("*.txt")):
+            p = Pattern.load(path)
+            self.patterns[p.name] = p if self.is_unit(p.name) else p.trimmed()
+
+    def is_unit(self, name: str) -> bool:
+        return self.repeats.get(name, {}).get("status") == "unit"
 
     def __getitem__(self, name: str) -> Pattern:
         return self.patterns[name]
@@ -113,6 +129,10 @@ class Corpus:
     def band_tile(self, name: str) -> Pattern:
         """One horizontal period of a repeating border band."""
         band = self[name]
+        info = self.repeats.get(name, {})
+        if self.is_unit(name):
+            unit = band.cells if info.get("axis") == "x" else band.cells.T
+            return Pattern(f"{name}_tile", unit.copy())
         period = band.horizontal_period()
         if period is None:
             raise ValueError(f"{name} is not horizontally periodic")
