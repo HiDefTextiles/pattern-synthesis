@@ -74,5 +74,6 @@ Code: GPL-3.0, matching Sjonabok and the site. Generated patterns:
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), created by Helga Ingimundardóttir, Háskóli Íslands.
 
 The source patterns (Þjóðminjasafn Íslands and Nationalmuseet manuscripts, via
-*Íslensk sjónabók*, 2009) are public domain. Each banner's `banner.meta.json`
+*Íslensk sjónabók*, 2009) are public domain. The charts were digitised in 2024
+(NSN summer project) from the pattern files on the CD that comes with the book. Each banner's `banner.meta.json`
 lists the manuscript numbers it draws on and a short credit line.
