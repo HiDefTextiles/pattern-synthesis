@@ -1,6 +1,8 @@
 ---
 title: "Cellular automaton"
 subtitle: "One simple rule, row after row"
+nocite: |
+  @wolfram1983statistical, @wolfram2002new
 ---
 
 ## In plain words
@@ -27,7 +29,11 @@ Different rules give completely different worlds: some make nested triangles, so
 | Everything is new; crisp, machine-like geometry | Does not look like Sjónabók |
 | | A contrast rather than a continuation |
 
-::: {.callout-note appearance="simple"}
-## Read more
-[Elementary cellular automaton](https://en.wikipedia.org/wiki/Elementary_cellular_automaton) · [Rule 90](https://en.wikipedia.org/wiki/Rule_90) · [Rule 30](https://en.wikipedia.org/wiki/Rule_30) · [Cellular automaton](https://en.wikipedia.org/wiki/Cellular_automaton) (all Wikipedia)
+## Sources
+
+The papers behind this page. Where a free copy exists (author page, arXiv, university repository), the link goes there.
+
+::: {#refs}
 :::
+
+**Background reading:** [Elementary cellular automaton](https://en.wikipedia.org/wiki/Elementary_cellular_automaton) · [Rule 90](https://en.wikipedia.org/wiki/Rule_90) · [Rule 30](https://en.wikipedia.org/wiki/Rule_30) · [Cellular automaton](https://en.wikipedia.org/wiki/Cellular_automaton) (all Wikipedia)

@@ -6,7 +6,7 @@ WaveFunctionCollapse (WFC) was released by Maxim Gumin in 2016 as an
 open-source program that "generates bitmaps that are locally similar to the
 input bitmap" [@gumin2016wfc]. It was preceded, and largely anticipated, by
 Paul Merrell's *model synthesis* [@merrell2007model; @merrell2008continuous;
-@merrell2011model], which generates 3D models from an example by enforcing
+@merrell2011model; see also @wiki_model_synthesis], which generates 3D models from an example by enforcing
 adjacency constraints between labelled cells. Merrell later wrote a direct
 comparison of the two [@merrell2021comparing], arguing that WFC is
 essentially model synthesis with a different cell-selection order and that
@@ -70,7 +70,7 @@ positive and negative examples, and surveys uses in games. Seen this way:
 * **Global constraints.** Plain WFC cannot enforce "exactly one rose
   here" or "symmetric about this axis". These are usually added as
   pre-constrained cells (pinning), or as extra constraints in a general
-  solver [@sandhu2019enhancing; @karth2022wfc].
+  solver [@karth2022wfc].
 * **Periodicity.** Wrapping the output grid gives seamless horizontal
   tiling for free, which a banner may want.
 

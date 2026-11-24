@@ -2,7 +2,7 @@
 
 This book collects the background needed before writing a generator that
 produces new two-colour charts "in the same vein" as *Íslensk sjónabók*
-[@sjonabok2009], and in particular a long banner that carries the main
+[@sjonabok], and in particular a long banner that carries the main
 motifs of the collection and blends between them.
 
 Scope decided so far:

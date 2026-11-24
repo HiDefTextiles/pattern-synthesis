@@ -1,6 +1,8 @@
 ---
 title: "Wave function collapse"
 subtitle: "Sudoku with stitches"
+nocite: |
+  @gumin2016wfc, @merrell2007model, @merrell2011model, @merrell2021comparing, @karth2017wfc, @karth2022wfc
 ---
 
 ## In plain words
@@ -29,7 +31,11 @@ Every little square in the result really occurs in Sjónabók, but nothing force
 | Every small patch is authentic | Sparse and fragmented between motifs |
 | Motifs are easy to pin in place | No sense of overall composition |
 
-::: {.callout-note appearance="simple"}
-## Read more
-[Model synthesis](https://en.wikipedia.org/wiki/Model_synthesis) (Wikipedia) · [Constraint programming](https://en.wikipedia.org/wiki/Constraint_programming) (Wikipedia)
+## Sources
+
+The papers behind this page. Where a free copy exists (author page, arXiv, university repository), the link goes there.
+
+::: {#refs}
 :::
+
+**Background reading:** [Model synthesis](https://en.wikipedia.org/wiki/Model_synthesis) (Wikipedia) · [Constraint programming](https://en.wikipedia.org/wiki/Constraint_programming) (Wikipedia)

@@ -1,0 +1,2 @@
+/* Long URLs in the reference list wrap instead of widening the page. */
+.csl-entry { overflow-wrap: anywhere; }

@@ -1,13 +1,15 @@
 ---
 title: "Image quilting"
 subtitle: "Patchwork from the book"
+nocite: |
+  @efros2001quilting, @kwatra2003graphcut
 ---
 
 ## In plain words
 
 Instead of single stitches, the computer cuts small square pieces out of the book and lays them down like a patchwork, row by row, each piece slightly overlapping the ones already placed. It chooses pieces whose overlapping edge agrees with what is already there.
 
-Where two pieces overlap it cuts along the wiggly line where they disagree least, so the seams are hard to see. The method is from Efros and Freeman (2001).
+Where two pieces overlap it cuts along the wiggly line where they disagree least, so the seams are hard to see. The method is from @efros2001quilting.
 
 ## The setting
 
@@ -27,7 +29,11 @@ Where two pieces overlap it cuts along the wiggly line where they disagree least
 | Fast and very book-like | With large blocks it is mostly reassembling the book |
 | Keeps larger shapes intact | |
 
-::: {.callout-note appearance="simple"}
-## Read more
-[Texture synthesis](https://en.wikipedia.org/wiki/Texture_synthesis) (Wikipedia)
+## Sources
+
+The papers behind this page. Where a free copy exists (author page, arXiv, university repository), the link goes there.
+
+::: {#refs}
 :::
+
+**Background reading:** [Texture synthesis](https://en.wikipedia.org/wiki/Texture_synthesis) (Wikipedia)

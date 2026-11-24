@@ -1,15 +1,53 @@
-@book{sjonabok2009,
-  title     = {Íslensk sjónabók: Ornaments and Patterns Found in Iceland},
-  publisher = {Heimilisiðnaðarfélag Íslands, Listaháskóli Íslands and Þjóðminjasafn Íslands},
+% References for the literature review and the docs site.
+%
+% Rule for this file: every entry was checked to exist (publisher page,
+% author page, arXiv, DOI or library record) on 2026-11-24. Fields that could
+% not be confirmed were left out rather than guessed. `url` points to a free,
+% open-access copy where one exists (author page, arXiv, eScholarship, PMLR);
+% `doi` points to the publisher version.
+
+% ── Corpus and Icelandic sources ─────────────────────────────────────────────
+
+@book{sjonabok,
+  title     = {{Íslensk sjónabók}: Ornaments and Patterns Found in Iceland},
+  editor    = {Geirfinnsdóttir, Birna},
+  publisher = {{Heimilisiðnaðarfélag Íslands, Listaháskóli Íslands and Þjóðminjasafn Íslands}},
   address   = {Reykjavík},
-  year      = {2009},
-  note      = {unverified: publication year and editors not checked against the book}
+  url       = {https://search.worldcat.org/title/islensk-sjonabok-ornaments-and-patterns-found-in-iceland/oclc/535497650},
+  note      = {Library record: WorldCat OCLC 535497650}
 }
+@misc{gudjonsson_utsaumur,
+  author    = {Guðjónsson, Elsa E.},
+  title     = {{Íslenskur útsaumur}},
+  howpublished = {Book; reviewed by Sigríður Kristjánsdóttir in Saga: Tímarit Sögufélags 24 (1986)},
+  url       = {https://saga.sogufelag.is/saga-greinar/elsa-e-gudjonsson-islenskur-utsaumur/}
+}
+@book{gudjonsson2023refil,
+  author    = {Guðjónsson, Elsa E.},
+  editor    = {Árnadóttir, Lilja and Árnason, Mörður},
+  title     = {{Með verkum handanna: Íslenskur refilsaumur fyrri alda}},
+  publisher = {Þjóðminjasafn Íslands},
+  address   = {Reykjavík},
+  year      = {2023},
+  url       = {https://www.forlagid.is/vara/med-verkum-handanna-islenskur-refilsaumur-fyrri-alda/},
+  note      = {English edition: Creative Hands: Icelandic laid-and-couched embroideries of past centuries, translated by Anna Yates, ISBN 9789979790648}
+}
+@misc{trc_refilsaumur,
+  author       = {{Textile Research Centre Leiden}},
+  title        = {Refilsaumur},
+  howpublished = {TRC Needles},
+  url          = {https://trc-leiden.nl/trc-needles/techniques/embroidery/embroidery-stitches/refilsaumur},
+  note         = {Accessed 2026-11-23}
+}
+
+% ── Wave function collapse and model synthesis ───────────────────────────────
+
 @misc{gumin2016wfc,
   author       = {Gumin, Maxim},
   title        = {{WaveFunctionCollapse}},
   year         = {2016},
-  howpublished = {\url{https://github.com/mxgmn/WaveFunctionCollapse}}
+  howpublished = {Software repository, GitHub},
+  url          = {https://github.com/mxgmn/WaveFunctionCollapse}
 }
 @inproceedings{merrell2007model,
   author    = {Merrell, Paul},
@@ -25,7 +63,8 @@
   journal = {ACM Transactions on Graphics (SIGGRAPH Asia)},
   volume  = {27},
   number  = {5},
-  year    = {2008}
+  year    = {2008},
+  url     = {https://www.cs.princeton.edu/courses/archive/spring11/cos598A/pdfs/Merrell08.pdf}
 }
 @article{merrell2011model,
   author  = {Merrell, Paul and Manocha, Dinesh},
@@ -34,36 +73,29 @@
   volume  = {17},
   number  = {6},
   pages   = {715--728},
-  year    = {2011}
+  year    = {2011},
+  url     = {https://www.cs.princeton.edu/courses/archive/spring11/cos598A/pdfs/Merrell10b.pdf}
 }
 @misc{merrell2021comparing,
   author       = {Merrell, Paul},
   title        = {Comparing Model Synthesis and Wave Function Collapse},
   year         = {2021},
-  howpublished = {\url{https://paulmerrell.org/wp-content/uploads/2021/07/comparison.pdf}}
+  url          = {https://paulmerrell.org/wp-content/uploads/2021/07/comparison.pdf}
 }
 @inproceedings{karth2017wfc,
   author    = {Karth, Isaac and Smith, Adam M.},
   title     = {{WaveFunctionCollapse} is Constraint Solving in the Wild},
   booktitle = {Proceedings of the 12th International Conference on the Foundations of Digital Games (FDG)},
   year      = {2017},
-  doi       = {10.1145/3102071.3110566}
+  doi       = {10.1145/3102071.3110566},
+  url       = {https://escholarship.org/uc/item/1f29235t}
 }
 @article{karth2022wfc,
   author  = {Karth, Isaac and Smith, Adam M.},
   title   = {{WaveFunctionCollapse}: Content Generation via Constraint Solving and Machine Learning},
   journal = {IEEE Transactions on Games},
-  volume  = {14},
-  number  = {3},
   year    = {2022},
-  note    = {Early access 2021; https://escholarship.org/uc/item/3rm1w0mn. unverified: volume/issue}
-}
-@inproceedings{sandhu2019enhancing,
-  author    = {Sandhu, Arunpreet and Chen, Zeyuan and McCoy, Joshua},
-  title     = {Enhancing Wave Function Collapse with Design-Level Constraints},
-  booktitle = {Proceedings of the 14th International Conference on the Foundations of Digital Games (FDG)},
-  year      = {2019},
-  note      = {unverified: author list and venue from memory}
+  url     = {https://escholarship.org/uc/item/3rm1w0mn}
 }
 @article{mackworth1977consistency,
   author  = {Mackworth, Alan K.},
@@ -72,7 +104,8 @@
   volume  = {8},
   number  = {1},
   pages   = {99--118},
-  year    = {1977}
+  year    = {1977},
+  url     = {https://www.cs.ubc.ca/~mack/Publications/AI77.pdf}
 }
 @article{haralick1980increasing,
   author  = {Haralick, Robert M. and Elliott, Gordon L.},
@@ -81,28 +114,35 @@
   volume  = {14},
   number  = {3},
   pages   = {263--313},
-  year    = {1980}
+  year    = {1980},
+  url     = {http://haralick.org/journals/haralick_elliot.pdf}
 }
+
+% ── Texture synthesis and random fields ──────────────────────────────────────
+
 @inproceedings{efros1999texture,
   author    = {Efros, Alexei A. and Leung, Thomas K.},
   title     = {Texture Synthesis by Non-parametric Sampling},
   booktitle = {Proceedings of the IEEE International Conference on Computer Vision (ICCV)},
   pages     = {1033--1038},
-  year      = {1999}
+  year      = {1999},
+  url       = {https://people.eecs.berkeley.edu/~efros/research/EfrosLeung.html}
 }
 @inproceedings{wei2000fast,
   author    = {Wei, Li-Yi and Levoy, Marc},
   title     = {Fast Texture Synthesis Using Tree-Structured Vector Quantization},
   booktitle = {Proceedings of SIGGRAPH 2000},
   pages     = {479--488},
-  year      = {2000}
+  year      = {2000},
+  url       = {https://graphics.stanford.edu/papers/texture-synthesis-sig00/}
 }
 @inproceedings{efros2001quilting,
   author    = {Efros, Alexei A. and Freeman, William T.},
   title     = {Image Quilting for Texture Synthesis and Transfer},
   booktitle = {Proceedings of SIGGRAPH 2001},
   pages     = {341--346},
-  year      = {2001}
+  year      = {2001},
+  url       = {https://people.eecs.berkeley.edu/~efros/research/quilting.html}
 }
 @article{kwatra2003graphcut,
   author  = {Kwatra, Vivek and Schödl, Arno and Essa, Irfan and Turk, Greg and Bobick, Aaron},
@@ -111,7 +151,8 @@
   volume  = {22},
   number  = {3},
   pages   = {277--286},
-  year    = {2003}
+  year    = {2003},
+  url     = {https://cpl.cc.gatech.edu/projects/graphcuttextures}
 }
 @article{barnes2009patchmatch,
   author  = {Barnes, Connelly and Shechtman, Eli and Finkelstein, Adam and Goldman, Dan B.},
@@ -119,7 +160,8 @@
   journal = {ACM Transactions on Graphics (SIGGRAPH)},
   volume  = {28},
   number  = {3},
-  year    = {2009}
+  year    = {2009},
+  url     = {https://www.cs.princeton.edu/gfx/pubs/Barnes_2009_PAR/}
 }
 @article{criminisi2004region,
   author  = {Criminisi, Antonio and Pérez, Patrick and Toyama, Kentaro},
@@ -128,7 +170,8 @@
   volume  = {13},
   number  = {9},
   pages   = {1200--1212},
-  year    = {2004}
+  year    = {2004},
+  url     = {https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/criminisi_tip2004.pdf}
 }
 @article{geman1984stochastic,
   author  = {Geman, Stuart and Geman, Donald},
@@ -137,7 +180,8 @@
   volume  = {6},
   number  = {6},
   pages   = {721--741},
-  year    = {1984}
+  year    = {1984},
+  url     = {https://cs.uwaterloo.ca/~mannr/cs886-w10/GemanandGeman84.pdf}
 }
 @article{paget1998texture,
   author  = {Paget, Rupert and Longstaff, I. Dennis},
@@ -155,8 +199,12 @@
   volume  = {27},
   number  = {2},
   pages   = {107--126},
-  year    = {1998}
+  year    = {1998},
+  url     = {https://core.ac.uk/download/28932558.pdf}
 }
+
+% ── Symmetry, grammars and cellular automata ─────────────────────────────────
+
 @book{grunbaum1987tilings,
   author    = {Grünbaum, Branko and Shephard, G. C.},
   title     = {Tilings and Patterns},
@@ -178,7 +226,8 @@
   volume  = {26},
   number  = {3},
   pages   = {354--371},
-  year    = {2004}
+  year    = {2004},
+  url     = {https://pure.psu.edu/en/publications/a-computational-model-for-periodic-pattern-perception-based-on-fr/}
 }
 @inproceedings{stiny1972shape,
   author    = {Stiny, George and Gips, James},
@@ -193,7 +242,8 @@
   title     = {The Algorithmic Beauty of Plants},
   publisher = {Springer},
   address   = {New York},
-  year      = {1990}
+  year      = {1990},
+  url       = {http://algorithmicbotany.org/papers/abop/abop.pdf}
 }
 @article{wolfram1983statistical,
   author  = {Wolfram, Stephen},
@@ -202,79 +252,94 @@
   volume  = {55},
   number  = {3},
   pages   = {601--644},
-  year    = {1983}
+  year    = {1983},
+  doi     = {10.1103/RevModPhys.55.601}
 }
 @book{wolfram2002new,
   author    = {Wolfram, Stephen},
   title     = {A New Kind of Science},
   publisher = {Wolfram Media},
   address   = {Champaign, IL},
-  year      = {2002}
+  year      = {2002},
+  url       = {https://www.wolframscience.com/nks/}
 }
+
+% ── Learned models and evaluation ────────────────────────────────────────────
+
 @inproceedings{kingma2014vae,
   author    = {Kingma, Diederik P. and Welling, Max},
   title     = {Auto-Encoding Variational {Bayes}},
   booktitle = {International Conference on Learning Representations (ICLR)},
   year      = {2014},
-  note      = {arXiv:1312.6114}
+  url       = {https://arxiv.org/abs/1312.6114}
 }
 @inproceedings{goodfellow2014gan,
   author    = {Goodfellow, Ian and Pouget-Abadie, Jean and Mirza, Mehdi and Xu, Bing and Warde-Farley, David and Ozair, Sherjil and Courville, Aaron and Bengio, Yoshua},
   title     = {Generative Adversarial Nets},
   booktitle = {Advances in Neural Information Processing Systems 27 (NeurIPS)},
-  year      = {2014}
+  year      = {2014},
+  url       = {https://arxiv.org/abs/1406.2661}
 }
 @inproceedings{shaham2019singan,
   author    = {Shaham, Tamar Rott and Dekel, Tali and Michaeli, Tomer},
   title     = {{SinGAN}: Learning a Generative Model from a Single Natural Image},
   booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
-  year      = {2019}
+  year      = {2019},
+  url       = {https://arxiv.org/abs/1905.01164}
 }
 @inproceedings{awiszus2020toad,
   author    = {Awiszus, Maren and Schubert, Frederik and Rosenhahn, Bodo},
   title     = {{TOAD-GAN}: Coherent Style Level Generation from a Single Example},
   booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence and Interactive Digital Entertainment (AIIDE)},
   year      = {2020},
-  note      = {arXiv:2008.01531}
+  url       = {https://arxiv.org/abs/2008.01531}
 }
 @inproceedings{ho2020ddpm,
   author    = {Ho, Jonathan and Jain, Ajay and Abbeel, Pieter},
   title     = {Denoising Diffusion Probabilistic Models},
   booktitle = {Advances in Neural Information Processing Systems 33 (NeurIPS)},
-  year      = {2020}
+  year      = {2020},
+  url       = {https://arxiv.org/abs/2006.11239}
 }
 @inproceedings{lugmayr2022repaint,
   author    = {Lugmayr, Andreas and Danelljan, Martin and Romero, Andres and Yu, Fisher and Timofte, Radu and Van Gool, Luc},
   title     = {{RePaint}: Inpainting Using Denoising Diffusion Probabilistic Models},
   booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-  year      = {2022}
+  year      = {2022},
+  url       = {https://arxiv.org/abs/2201.09865}
 }
 @inproceedings{gatys2015texture,
   author    = {Gatys, Leon A. and Ecker, Alexander S. and Bethge, Matthias},
   title     = {Texture Synthesis Using Convolutional Neural Networks},
   booktitle = {Advances in Neural Information Processing Systems 28 (NeurIPS)},
-  year      = {2015}
+  year      = {2015},
+  url       = {https://arxiv.org/abs/1505.07376}
 }
 @inproceedings{heusel2017gans,
   author    = {Heusel, Martin and Ramsauer, Hubert and Unterthiner, Thomas and Nessler, Bernhard and Hochreiter, Sepp},
   title     = {{GANs} Trained by a Two Time-Scale Update Rule Converge to a Local {Nash} Equilibrium},
   booktitle = {Advances in Neural Information Processing Systems 30 (NeurIPS)},
-  year      = {2017}
+  year      = {2017},
+  url       = {https://arxiv.org/abs/1706.08500}
 }
 @inproceedings{lucas2019tile,
   author    = {Lucas, Simon M. and Volz, Vanessa},
   title     = {Tile Pattern {KL}-Divergence for Analysing and Evolving Game Levels},
   booktitle = {Proceedings of the Genetic and Evolutionary Computation Conference (GECCO)},
   year      = {2019},
-  note      = {arXiv:1905.05077}
+  url       = {https://arxiv.org/abs/1905.05077}
 }
+
+% ── Machine knitting ─────────────────────────────────────────────────────────
+
 @article{mccann2016compiler,
   author  = {McCann, James and Albaugh, Lea and Narayanan, Vidya and Grow, April and Matusik, Wojciech and Mankoff, Jennifer and Hodgins, Jessica},
   title   = {A Compiler for {3D} Machine Knitting},
   journal = {ACM Transactions on Graphics (SIGGRAPH)},
   volume  = {35},
   number  = {4},
-  year    = {2016}
+  year    = {2016},
+  url     = {https://homes.cs.washington.edu/~ztatlock/599z-17sp/papers/knitting-mccann-siggraph16.pdf}
 }
 @article{narayanan2018automatic,
   author  = {Narayanan, Vidya and Albaugh, Lea and Hodgins, Jessica and Coros, Stelian and McCann, James},
@@ -282,7 +347,8 @@
   journal = {ACM Transactions on Graphics},
   volume  = {37},
   number  = {3},
-  year    = {2018}
+  year    = {2018},
+  url     = {https://textiles-lab.github.io/publications/2018-autoknit/}
 }
 @inproceedings{kaspar2019neural,
   author    = {Kaspar, Alexandre and Oh, Tae-Hyun and Makatura, Liane and Kellnhofer, Petr and Matusik, Wojciech},
@@ -290,7 +356,8 @@
   booktitle = {Proceedings of the 36th International Conference on Machine Learning (ICML)},
   series    = {PMLR},
   volume    = {97},
-  year      = {2019}
+  year      = {2019},
+  url       = {https://proceedings.mlr.press/v97/kaspar19a.html}
 }
 @article{kaspar2021knit,
   author  = {Kaspar, Alexandre and Wu, Kui and Luo, Yiyue and Makatura, Liane and Matusik, Wojciech},
@@ -299,41 +366,57 @@
   volume  = {40},
   number  = {4},
   year    = {2021},
-  doi     = {10.1145/3450626.3459752}
+  doi     = {10.1145/3450626.3459752},
+  url     = {https://knitsketching.csail.mit.edu/}
 }
-@inproceedings{knitsketch2013,
-  author    = {{Authors not verified}},
-  title     = {Generating Knitting Patterns from a Sketch: A {CSP} Approach},
-  booktitle = {Computational Aesthetics in Graphics, Visualization, and Imaging (Eurographics)},
-  year      = {2013},
-  doi       = {10.1145/2487276.2487284},
-  note      = {unverified: authors and venue; see https://diglib.eg.org/handle/10.2312/14896}
+
+% ── Wikipedia (background reading, not primary sources) ──────────────────────
+
+@misc{wiki_model_synthesis,
+  title        = {Model synthesis},
+  howpublished = {Wikipedia},
+  url          = {https://en.wikipedia.org/wiki/Model_synthesis},
+  note         = {Accessed 2026-11-24}
 }
-@misc{wikipedia_fairisle,
+@misc{wiki_texture_synthesis,
+  title        = {Texture synthesis},
+  howpublished = {Wikipedia},
+  url          = {https://en.wikipedia.org/wiki/Texture_synthesis},
+  note         = {Accessed 2026-11-24}
+}
+@misc{wiki_mrf,
+  title        = {Markov random field},
+  howpublished = {Wikipedia},
+  url          = {https://en.wikipedia.org/wiki/Markov_random_field},
+  note         = {Accessed 2026-11-24}
+}
+@misc{wiki_frieze,
+  title        = {Frieze group},
+  howpublished = {Wikipedia},
+  url          = {https://en.wikipedia.org/wiki/Frieze_group},
+  note         = {Accessed 2026-11-24}
+}
+@misc{wiki_wallpaper,
+  title        = {Wallpaper group},
+  howpublished = {Wikipedia},
+  url          = {https://en.wikipedia.org/wiki/Wallpaper_group},
+  note         = {Accessed 2026-11-24}
+}
+@misc{wiki_eca,
+  title        = {Elementary cellular automaton},
+  howpublished = {Wikipedia},
+  url          = {https://en.wikipedia.org/wiki/Elementary_cellular_automaton},
+  note         = {Accessed 2026-11-24}
+}
+@misc{wiki_fairisle,
   title        = {Fair Isle (knitting)},
-  howpublished = {Wikipedia, \url{https://en.wikipedia.org/wiki/Fair_Isle_(knitting)}},
-  note         = {Accessed 2026-11-23}
+  howpublished = {Wikipedia},
+  url          = {https://en.wikipedia.org/wiki/Fair_Isle_(knitting)},
+  note         = {Accessed 2026-11-24}
 }
-@book{gudjonsson1985utsaumur,
-  author    = {Guðjónsson, Elsa E.},
-  title     = {Íslenskur útsaumur},
-  publisher = {Vaka},
-  address   = {Reykjavík},
-  year      = {1985},
-  note      = {unverified: publisher and year; later edition by Þjóðminjasafn Íslands}
-}
-@book{gudjonsson2016refil,
-  author    = {Guðjónsson, Elsa E.},
-  editor    = {Árnadóttir, Lilja},
-  title     = {Með verkum handanna: Íslenskur refilsaumur fyrri alda},
-  publisher = {Þjóðminjasafn Íslands},
-  address   = {Reykjavík},
-  year      = {2016},
-  note      = {unverified: editor and year. English edition: Creative Hands. https://thjodminjasafn.is/en/baekur-og-syningarskrar/med-verkum-handanna---islenskur-refilsaumur-fyrri-alda}
-}
-@misc{trc_refilsaumur,
-  author       = {{Textile Research Centre Leiden}},
-  title        = {Refilsaumur},
-  howpublished = {TRC Needles, \url{https://trc-leiden.nl/trc-needles/techniques/embroidery/embroidery-stitches/refilsaumur}},
-  note         = {Accessed 2026-11-23}
+@misc{wiki_njalurefill,
+  title        = {Njálurefill},
+  howpublished = {Wikipedia},
+  url          = {https://en.wikipedia.org/wiki/Nj%C3%A1lurefill},
+  note         = {Accessed 2026-11-24}
 }

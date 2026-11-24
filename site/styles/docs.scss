@@ -55,3 +55,6 @@
   transform: none !important;
   margin-right: 1rem;
 }
+
+// Long URLs in reference lists wrap instead of widening the page.
+.csl-entry { overflow-wrap: anywhere; }
