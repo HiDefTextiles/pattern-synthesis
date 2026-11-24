@@ -1,0 +1,57 @@
+// Banner viewer (js/banner-viewer.js) and small English overrides.
+// Colours come from styles/hi-site.scss (HÍ palette).
+
+/*-- scss:defaults --*/
+
+/*-- scss:rules --*/
+
+// English labels for boxes that hidef.scss labels in Icelandic
+.heimild p:first-child::before { content: "Source"; }
+
+// Viewer colours are read by the script, so they live in CSS variables
+:root {
+  --bv-ground: #ffffff;
+  --bv-ground-new: #ecebfa;
+  --bv-copied: #b5b3ad;
+  --bv-stitch: #262626;
+  --bv-new: #10099F;
+  --bv-echo: #FFA05F;
+}
+
+.banner-viewer {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1.5rem 0 2rem;
+
+  .bv-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1.25rem; }
+  .bv-seg { display: inline-flex; border: 1px solid $hi-blue; }
+  .bv-seg button, .bv-chips button {
+    font: inherit; font-size: 0.85rem; font-weight: 500; cursor: pointer;
+    background: transparent; color: $hi-blue; border: 0; padding: 0.3rem 0.8rem;
+  }
+  .bv-seg button[aria-pressed="true"] { background: $hi-blue; color: $hi-white; }
+  .bv-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .bv-chips button { border: 1px solid #c9c7c0; }
+  .bv-chips button[aria-pressed="true"] { border-color: $hi-blue; background: var(--bv-ground-new); }
+  button:focus-visible, input:focus-visible { outline: 2px solid $hi-teal; outline-offset: 2px; }
+  .bv-zoom { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; }
+  .bv-legend { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; font-size: 0.85rem; }
+  .bv-legend span { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .bv-sw { width: 0.85rem; height: 0.85rem; display: inline-block; border: 1px solid #c9c7c0; }
+  .bv-meter { display: flex; height: 0.5rem; max-width: 32rem; background: #e6e5e0; }
+  .bv-meter i { display: block; height: 100%; }
+  .bv-stats { font-family: $font-family-monospace; font-size: 0.8rem; color: #555; display: flex; flex-wrap: wrap; gap: 0.2rem 1.2rem; font-variant-numeric: tabular-nums; }
+  .bv-chart { overflow-x: auto; border: 1px solid #d9d7d0; padding: 0.5rem; background: var(--bv-ground); }
+  .bv-chart canvas { display: block; image-rendering: pixelated; }
+  .bv-caption { font-size: 0.8rem; color: #666; overflow-wrap: anywhere; }
+}
+
+.method-table td, .method-table th { vertical-align: top; }
+
+// This site has more navbar items than the gallery, so the title sits in the
+// flow next to the logo instead of centred over the menu.
+.navbar .navbar-brand:not(.navbar-brand-logo) {
+  position: static !important;
+  transform: none !important;
+  margin-right: 1rem;
+}

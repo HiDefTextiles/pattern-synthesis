@@ -1,0 +1,7 @@
+---
+title: "Roadmap"
+---
+
+These are the open questions and decisions before the generator is implemented in C++. The list is kept in the repository as `TODO.md` and included here.
+
+{{< include ../TODO.md >}}

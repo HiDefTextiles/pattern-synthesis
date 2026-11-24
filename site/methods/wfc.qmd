@@ -1,0 +1,35 @@
+---
+title: "Wave function collapse"
+subtitle: "Sudoku with stitches"
+---
+
+## In plain words
+
+The computer first cuts every original chart into tiny overlapping squares, for example 3 stitches by 3, and remembers which squares can sit next to which. Then it treats the empty gap between two motifs like a Sudoku: every empty stitch could still be anything, and each decision rules out options for its neighbours.
+
+It always fills the stitch with the fewest options left, picks one of the squares that still fit (common squares more often), and passes the consequences on to the neighbours. If it paints itself into a corner it starts that gap again with the next seed.
+
+Every little square in the result really occurs in Sjónabók, but nothing forces the bigger picture to make sense, so the fill can look scattered.
+
+## The setting
+
+**Window size.** A 2×2 window gives the computer very few rules, so the fill is close to random noise. A 3×3 window keeps more of the book's local shapes. Larger windows look more like the book, but they were too slow in the Python prototype; that is a job for the C++ version.
+
+## The banner
+
+```{=html}
+<div class="banner-viewer" data-method="wfc"></div>
+<script src="../js/banner-viewer.js"></script>
+```
+
+## Good at, weak at
+
+| Good at | Weak at |
+|---|---|
+| Every small patch is authentic | Sparse and fragmented between motifs |
+| Motifs are easy to pin in place | No sense of overall composition |
+
+::: {.callout-note appearance="simple"}
+## Read more
+[Model synthesis](https://en.wikipedia.org/wiki/Model_synthesis) (Wikipedia) · [Constraint programming](https://en.wikipedia.org/wiki/Constraint_programming) (Wikipedia)
+:::

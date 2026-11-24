@@ -1,0 +1,22 @@
+---
+title: "An endless banner"
+subtitle: "Reproducible, and any part can be made on its own"
+---
+
+The banner has no last row. It is built from numbered motif slots, 0, 1, 2 and so on forever, and two rules keep it reproducible:
+
+1. **The motif in slot *k* depends only on the seed and *k*.** The computer derives a private random number generator from the pair (seed, *k*), so slot 1000 always gets the same motif, whether or not slots 0 to 999 were ever made.
+2. **The stretch between slots *k* and *k*+1 depends only on those two motifs and its own sub-seed.** Each stretch is filled independently. If filling gets stuck, it retries with the next sub-seed without touching the rest.
+
+The border bands repeat with their own period, so they continue forever too. Together this means:
+
+- the same seed and settings always give exactly the same stitches;
+- any section, for example rows 50,000 to 50,300, can be generated and knitted on its own;
+- a mistake in one stretch can be regenerated without changing the neighbours.
+
+Every random choice in the code goes through one function, `sub_rng(seed, stage, slot)`, which is what makes this work.
+
+::: {.callout-note appearance="simple"}
+## Read more
+[Procedural generation](https://en.wikipedia.org/wiki/Procedural_generation) · [Random seed](https://en.wikipedia.org/wiki/Random_seed) (both Wikipedia)
+:::

@@ -1,0 +1,33 @@
+---
+title: "Cellular automaton"
+subtitle: "One simple rule, row after row"
+---
+
+## In plain words
+
+This method does not learn from the book at all. Each knitted row is computed from the row before it by one tiny rule: every stitch looks at itself and its two neighbours in the previous row and decides whether it is a stitch or background. The motif stitches are written back in every row, so the motifs seed the patterns that flow out of them.
+
+Different rules give completely different worlds: some make nested triangles, some regular lattices, some chaos. Knitting row by row makes this a natural fit for a machine.
+
+## The setting
+
+**The rule number.** There are 256 possible rules, numbered 0 to 255. Rule 90 makes nested triangles, rule 150 makes denser geometric lattices, and rule 30 is famously chaotic.
+
+## The banner
+
+```{=html}
+<div class="banner-viewer" data-method="cellular"></div>
+<script src="../js/banner-viewer.js"></script>
+```
+
+## Good at, weak at
+
+| Good at | Weak at |
+|---|---|
+| Everything is new; crisp, machine-like geometry | Does not look like Sjónabók |
+| | A contrast rather than a continuation |
+
+::: {.callout-note appearance="simple"}
+## Read more
+[Elementary cellular automaton](https://en.wikipedia.org/wiki/Elementary_cellular_automaton) · [Rule 90](https://en.wikipedia.org/wiki/Rule_90) · [Rule 30](https://en.wikipedia.org/wiki/Rule_30) · [Cellular automaton](https://en.wikipedia.org/wiki/Cellular_automaton) (all Wikipedia)
+:::
