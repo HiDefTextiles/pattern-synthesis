@@ -7,9 +7,9 @@ title: "About"
 This site belongs to [HiDefTextiles/pattern-synthesis](https://github.com/HiDefTextiles/pattern-synthesis), part of [HiDef Textiles](https://hideftextiles.github.io/), a research project at the University of Iceland on machine knitting. The source charts come from the [Sjónabók repository](https://github.com/HiDefTextiles/Sjonabok), which is included as a git submodule, and can be browsed in the [Sjónabók gallery](https://hideftextiles.github.io/Sjonabok/).
 
 ::: {.heimild}
-The original manuscripts are held by Þjóðminjasafn Íslands (Natmus 453 by the National Museum of Denmark). They were compiled into the book *Íslensk sjónabók* by Heimilisiðnaðarfélag Íslands, Listaháskóli Íslands and Þjóðminjasafn Íslands in 2009, and digitised by HiDef Textiles in 2024. The new patterns on this site were created in 2026 by Helga Ingimundardóttir, Háskóli Íslands, using algorithms. The source patterns are centuries old and in the **public domain**; the new patterns are released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Every generated banner records its source manuscripts and pattern numbers.
+The source patterns are centuries old and in the **public domain**. The new patterns are by Helga Ingimundardóttir, Háskóli Íslands, released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Each banner records the original manuscripts it draws on.
 
-When you use a generated design, please credit it as: *Pattern by Helga Ingimundardóttir, Háskóli Íslands (HiDef Textiles, 2026), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), derived from public-domain patterns in Íslensk sjónabók (2009).*
+Short credit: *Pattern by Helga Ingimundardóttir, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), after Þjms. 1105* (use the museum numbers listed for the banner).
 :::
 
 ## How the charts on this site are made

@@ -73,9 +73,6 @@ page.
 Code: GPL-3.0, matching Sjonabok and the site. Generated patterns:
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), created by Helga Ingimundardóttir, Háskóli Íslands.
 
-Provenance: the original manuscripts are held by Þjóðminjasafn Íslands (Natmus
-453 by the National Museum of Denmark). They were compiled into *Íslensk
-sjónabók* by Heimilisiðnaðarfélag Íslands, Listaháskóli Íslands and
-Þjóðminjasafn Íslands in 2009 and digitised by HiDef Textiles in 2024. The source
-patterns are public domain. Every generated banner carries its credit and source
-numbers in `banner.meta.json`.
+The source patterns (Þjóðminjasafn Íslands and Nationalmuseet manuscripts, via
+*Íslensk sjónabók*, 2009) are public domain. Each banner's `banner.meta.json`
+lists the manuscript numbers it draws on and a short credit line.
