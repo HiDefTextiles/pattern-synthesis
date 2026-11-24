@@ -65,14 +65,15 @@ class WfcFiller(Filler):
 
 class EfrosLeungFiller(Filler):
     """Grow free cells from the known ones outward. Each new cell copies the centre
-    of a sample window whose known cells match best (within `eps` of the best).
+    of a sample window whose known cells match best (within `tolerance` stitches).
     Windows are bit-packed so matching is a popcount."""
 
     name = "efros-leung"
 
-    def __init__(self, window: int = 7, eps: float = 0.15):
+    def __init__(self, window: int = 7, tolerance: int = 0):
+        """`tolerance`: also accept windows up to this many stitches worse than the best."""
         assert window % 2 == 1 and window * window <= 64
-        self.w, self.eps = window, eps
+        self.w, self.tol = window, tolerance
 
     def _pack(self, wins: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
         bits = wins.reshape(len(wins), -1).astype(np.uint64)
@@ -109,7 +110,7 @@ class EfrosLeungFiller(Filler):
                 if len(uniq) == 0:
                     uniq, cen, counts = sides[0] if len(sides[0][0]) else sides[1]
                 d = np.bitwise_count((uniq ^ val) & m).astype(float)
-                ok = d <= d.min() * (1 + self.eps) + 1e-9
+                ok = d <= d.min() + self.tol
                 p = counts * ok
                 choice = rng.choice(len(uniq), p=p / p.sum())
                 g[y + r, x + r] = cen[choice]
@@ -205,8 +206,11 @@ class CellularFiller(Filler):
     name = "cellular"
     RULES = [18, 22, 26, 30, 45, 54, 57, 60, 73, 90, 105, 110, 126, 146, 150, 182]
 
+    def __init__(self, rule: int | None = None):
+        self.rule = rule                                  # None: drawn from the seed
+
     def fill(self, pinned, left, right, rng):
-        rule = int(rng.choice(self.RULES))
+        rule = self.rule if self.rule is not None else int(rng.choice(self.RULES))
         table = np.array([(rule >> i) & 1 for i in range(8)], np.uint8)
         H, W = pinned.shape
         out = np.zeros((H, W), np.uint8)

@@ -2,7 +2,7 @@
 CORPUS := data/sjonabok/patterns/txt
 OUT    := out
 
-.PHONY: all data stats banners compare review preview clean
+.PHONY: all data stats banners compare explainer review preview clean
 
 all: stats review
 
@@ -22,6 +22,9 @@ banners: data | $(OUT)
 compare: data | $(OUT)
 	python3 python/banner.py --filler compare --slots 4 --out $(OUT)/compare
 	python3 python/compare_fillers.py 4
+
+explainer: data
+	python3 python/explainer_data.py 20 > docs/explainer/banners.json
 
 review:
 	quarto render review

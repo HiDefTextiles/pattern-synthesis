@@ -1,0 +1,340 @@
+<meta charset="utf-8">
+<title>Refill Generator Methods</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column of method sections; each section ends in a
+   full-width, horizontally scrolling knitting chart drawn on canvas. */
+:root {
+  --paper: #f5f4ef;
+  --panel: #ecebe4;
+  --ink: #1e1c1a;
+  --muted: #5d5a54;
+  --rule: #d6d3c9;
+  --stitch: #2a2622;          /* stitch copied from the book */
+  --stitch-dim: #b9b4a9;      /* copied stitch when "new" is highlighted */
+  --new: #1f6f8b;             /* generated stitch */
+  --echo: #c2861b;            /* generated, but an exact 8x8 echo of the book */
+  --ground: #f5f4ef;          /* background cell */
+  --ground-new: #e2ecef;      /* generated background cell, highlighted */
+  --accent: #1f6f8b;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Inter", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #171614; --panel: #22201d; --ink: #ece9e2; --muted: #a8a399; --rule: #3a3732;
+    --stitch: #ece6d8; --stitch-dim: #5a5650; --new: #5fb7d4; --echo: #e0a540;
+    --ground: #171614; --ground-new: #1d2a2f; --accent: #5fb7d4; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #171614; --panel: #22201d; --ink: #ece9e2; --muted: #a8a399; --rule: #3a3732;
+  --stitch: #ece6d8; --stitch-dim: #5a5650; --new: #5fb7d4; --echo: #e0a540;
+  --ground: #171614; --ground-new: #1d2a2f; --accent: #5fb7d4; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink); font-family: var(--body);
+  font-size: 1rem; line-height: 1.6;
+}
+.wrap {
+  max-width: 72rem; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 2.5rem 4rem;
+}
+.prose { max-width: 40rem; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3.1rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.05rem; font-weight: 600; font-family: var(--body); }
+p { margin: 0; }
+.lede { font-size: 1.15rem; color: var(--muted); margin-top: 1rem; }
+.eyebrow {
+  font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--accent);
+}
+header { display: grid; gap: 0.5rem; }
+.stack { display: grid; gap: 1rem; }
+
+/* sticky control bar */
+.controls {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--paper); border-bottom: 1px solid var(--rule);
+  margin-top: 2rem; padding-block: 0.75rem;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 10; background: var(--paper);
+}
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; overflow: hidden; }
+.seg button {
+  font: 500 0.85rem var(--body); color: var(--ink); background: transparent;
+  border: 0; padding: 0.4rem 0.9rem; cursor: pointer;
+}
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.seg button:focus-visible, .chips button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px;
+}
+label.zoom { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--muted); }
+.legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; font-size: 0.85rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.sw { width: 0.85rem; height: 0.85rem; border-radius: 2px; display: inline-block; border: 1px solid var(--rule); }
+
+/* sections */
+section.method { scroll-margin-top: 4.5rem; padding-top: 3rem; margin-top: 3rem; border-top: 1px solid var(--rule); display: grid; gap: 1.25rem; }
+.cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 18rem); gap: 2rem; align-items: start; }
+@media (max-width: 760px) { .cols { grid-template-columns: minmax(0, 1fr); } }
+.cols > * { min-width: 0; }
+.facts { background: var(--panel); border-radius: 6px; padding: 1rem 1.1rem; display: grid; gap: 0.6rem; font-size: 0.9rem; }
+.facts dt { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.facts dd { margin: 0 0 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chips button {
+  font: 500 0.85rem var(--body); color: var(--ink); background: transparent;
+  border: 1px solid var(--rule); border-radius: 999px; padding: 0.35rem 0.85rem; cursor: pointer;
+}
+.chips button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: var(--ground-new); }
+.meter { display: flex; height: 0.5rem; border-radius: 999px; overflow: hidden; background: var(--rule); max-width: 32rem; }
+.meter i { display: block; height: 100%; }
+.stats { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; font-family: var(--mono); font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.chart {
+  overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--ground);
+  padding: 0.5rem;
+}
+.chart canvas { display: block; image-rendering: pixelated; }
+.caption { font-size: 0.82rem; color: var(--muted); font-family: var(--mono); }
+.note { font-size: 0.92rem; color: var(--muted); }
+.loading { color: var(--muted); font-family: var(--mono); font-size: 0.85rem; padding: 1rem; }
+footer { margin-top: 4rem; border-top: 1px solid var(--rule); padding-top: 1.5rem; font-size: 0.85rem; color: var(--muted); display: grid; gap: 0.5rem; }
+a { color: var(--accent); }
+@media (prefers-reduced-motion: no-preference) { .chips button, .seg button { transition: background 0.15s, color 0.15s; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">HiDEF Textiles · pattern-synthesis</span>
+    <h1>Five ways to grow a Sjónabók refill</h1>
+    <div class="prose">
+      <p class="lede">A refill is a long woven or embroidered band. Here we try to knit one that never ends: original motifs from <em>Íslensk sjónabók</em> sit on a centre line, and a computer invents the stitches in between. This page explains, in plain words, five different ways of doing the inventing, and shows what each one produces on the same banner.</p>
+    </div>
+  </header>
+
+  <div class="controls" role="region" aria-label="Display settings">
+    <div class="seg" role="group" aria-label="Colour mode">
+      <button id="mode-pattern" aria-pressed="false">Pattern only</button>
+      <button id="mode-origin" aria-pressed="true">Copied vs new</button>
+    </div>
+    <label class="zoom" for="zoom">Stitch size <input id="zoom" type="range" min="1" max="6" value="3"></label>
+    <div class="legend" id="legend">
+      <span><i class="sw" style="background:var(--stitch-dim)"></i>copied from the book</span>
+      <span><i class="sw" style="background:var(--new)"></i>new stitch</span>
+      <span><i class="sw" style="background:var(--echo)"></i>new, but matches an 8×8 block in the book</span>
+    </div>
+  </div>
+
+  <section class="stack" style="margin-top:2rem">
+    <h2>How to read the charts</h2>
+    <div class="prose stack">
+      <p>Each chart is a banner lying on its side. Top to bottom is the knitting width, 85 needles on the Passap. Left to right is the length, one column per knitted row; scroll sideways to follow it. Border bands from the book run along both edges, and twenty-one original motifs sit on the centre line, always the same ones in the same order, so the only thing that changes between charts is the method filling the gaps.</p>
+      <p>With <strong>Copied vs new</strong> on, everything taken straight from the book is drawn grey, every invented stitch blue, and invented stitches that happen to recreate an exact 8×8 block from the book are drawn ochre. Switch to <strong>Pattern only</strong> to see the banner as it would be knitted in two colours.</p>
+      <p>Every chart is reproducible: the same settings and the same seed always give exactly the same stitches.</p>
+    </div>
+  </section>
+
+  <main id="methods"><p class="loading">Loading charts…</p></main>
+
+  <footer>
+    <p>Source charts: <em>Íslensk sjónabók</em> (Heimilisiðnaðarfélag Íslands, Listaháskóli Íslands, Þjóðminjasafn Íslands), digitised in HiDefTextiles/Sjonabok. The patterns are public domain.</p>
+    <p>Methods: Gumin, <em>WaveFunctionCollapse</em> (2016); Efros &amp; Leung, “Texture synthesis by non-parametric sampling” (ICCV 1999); Efros &amp; Freeman, “Image quilting for texture synthesis and transfer” (SIGGRAPH 2001); Wolfram, “Statistical mechanics of cellular automata” (Rev. Mod. Phys. 1983). Full references in the repository’s literature review.</p>
+    <p>Code: HiDefTextiles/pattern-synthesis, <code>python/banner.py</code> and <code>python/fillers.py</code>. Regenerate the data with <code>make explainer</code>.</p>
+  </footer>
+</div>
+
+<script>
+const METHODS = [
+  {
+    id: "wfc", title: "Wave function collapse",
+    short: "Sudoku with stitches",
+    body: [
+      "The computer first cuts every original chart into tiny overlapping squares, for example 3 stitches by 3 stitches, and remembers which squares can sit next to which. Then it treats the empty gap like a Sudoku: every empty stitch could still be anything, and each decision rules out options for its neighbours.",
+      "It always fills the stitch with the fewest options left, picks one of the allowed squares (common squares more often), and passes the consequences on to the neighbours. If it paints itself into a corner, it starts that gap again with the next seed.",
+      "Every little square in the result really occurs in Sjónabók, but nothing forces the bigger picture to make sense, so the fill can look scattered."
+    ],
+    knob: "Window size. A 2×2 window gives the computer very few rules, so the fill is close to random noise. A 3×3 window keeps more of the book's local shapes. Larger windows look more like the book but were too slow in this prototype.",
+    good: "Guarantees every small patch is authentic; easy to pin motifs in place.",
+    weak: "Sparse and fragmented between motifs; no sense of overall composition."
+  },
+  {
+    id: "efros-leung", title: "Stitch-by-stitch sampling",
+    short: "Look around, then copy what the book did",
+    body: [
+      "The gap is filled from its edges inward. For each empty stitch the computer looks at the stitches already decided around it, then searches the book for every spot whose surroundings look the same. It picks one of the best-matching spots and copies the stitch the book has in the middle.",
+      "Because each new stitch is decided by its neighbours, shapes from the motifs grow outward into the gap and continue naturally. Near the left motif it searches that motif's manuscript; nearer the right motif it gradually switches to the right one's."
+    ],
+    knob: "Window size is how far around each stitch the computer looks: a small window only sees the immediate neighbours, a larger one recognises bigger shapes. Tolerance decides whether it must copy from the best-matching spots only, or may also use spots that differ by a few stitches, which makes the fill looser and more surprising.",
+    good: "Closest to the book's texture in our measurements; fills look solid and continuous.",
+    weak: "Tends to extend the neighbouring motif rather than invent a new figure."
+  },
+  {
+    id: "quilting", title: "Image quilting",
+    short: "Patchwork from the book",
+    body: [
+      "Instead of single stitches, the computer cuts small square pieces out of the book and lays them down like a patchwork, row by row, each piece slightly overlapping the ones already placed. It chooses pieces whose overlapping edge agrees with what is already there.",
+      "Where two pieces overlap it cuts along the wiggly line where they disagree least, so the seams are hard to see."
+    ],
+    knob: "Block size. Small blocks are mixed more freely and give a busier, more invented texture. Large blocks bring whole chunks of the book along, which looks very authentic but copies more.",
+    good: "Fast and very book-like; keeps larger shapes intact.",
+    weak: "With large blocks it is mostly reassembling the book (more ochre)."
+  },
+  {
+    id: "symmetric", title: "Symmetric connector",
+    short: "Design half, mirror the rest",
+    body: [
+      "Almost every Sjónabók figure is mirror-symmetric. This method uses that: the computer invents only the left half of each gap, using either of the methods above, and mirrors it onto the right half. The result is a bridge between two motifs that is symmetric like the originals.",
+      "The mirroring adds order that the other methods lack, which is why these fills read as designed ornaments rather than texture."
+    ],
+    knob: "Which method invents the half: stitch-by-stitch sampling gives dense, flowing bridges, wave function collapse gives lighter, more open ones.",
+    good: "Looks deliberate and balanced, closest to how the book is composed.",
+    weak: "The mirror line can meet the next motif abruptly; more echoes because mirrored pieces repeat the book."
+  },
+  {
+    id: "cellular", title: "Cellular automaton",
+    short: "One simple rule, row after row",
+    body: [
+      "This one does not learn from the book at all. Each knitted row is computed from the row before it by one tiny rule: every stitch looks at itself and its two neighbours in the previous row and decides whether it is a stitch or background. The motif stitches are written back in every row, so the motifs seed the patterns that flow out of them.",
+      "Different rules give completely different worlds: some make nested triangles, some regular lattices, some chaos."
+    ],
+    knob: "The rule number (0 to 255) names one of the 256 possible rules. Rule 90 makes nested triangles, rule 150 makes denser geometric lattices, rule 30 is famously chaotic.",
+    good: "Everything is new; crisp, machine-like geometry that suits knitting.",
+    weak: "Does not look like Sjónabók; it is a contrast, not a continuation."
+  },
+  {
+    id: "spacing", title: "Spacing between motifs",
+    short: "How much room the computer gets",
+    body: [
+      "This is not a method but a setting that affects all of them: the number of free knitted rows between two motifs. All three charts below use stitch-by-stitch sampling.",
+      "With little space the motifs almost touch and the banner is mostly copied. With a lot of space the computer has to invent long transitions, which is where the method matters most."
+    ],
+    knob: "Gap width in knitted rows: 4, 14 or 30.",
+    good: "Narrow gaps keep the book's motifs in focus.",
+    weak: "Wide gaps show the weaknesses of whichever method fills them."
+  },
+  {
+    id: "evolve", title: "Evolving motifs",
+    short: "New motifs that morph between originals",
+    body: [
+      "Here only every fourth motif is an original. The three in between are new: the computer generates a quarter of a motif from the patterns of the two originals on either side and mirrors it into a fully symmetric figure. The first new motif borrows mostly from the left original, the last mostly from the right, so the banner slowly changes character as it goes.",
+      "This is the version that invents the most and is the one to watch for a banner that evolves over its length."
+    ],
+    knob: "How often an original appears (here every fourth motif) and how wide the gaps are (here 26 rows).",
+    good: "Real change along the length; most of the banner is new.",
+    weak: "New motifs are rougher than the originals; still early."
+  }
+];
+
+const state = { mode: "origin", zoom: 3, data: {}, choice: {} };
+
+function css(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+
+function palette() {
+  if (state.mode === "pattern") {
+    const g = css("--ground"), s = css("--stitch");
+    return [g, s, g, s, g, s];
+  }
+  return [css("--ground"), css("--stitch-dim"), css("--ground-new"), css("--new"), css("--ground-new"), css("--echo")];
+}
+
+function draw(canvas, v) {
+  const z = state.zoom, pal = palette();
+  canvas.width = v.cols * z; canvas.height = v.rows * z;
+  canvas.style.width = canvas.width + "px"; canvas.style.height = canvas.height + "px";
+  const ctx = canvas.getContext("2d");
+  const img = ctx.createImageData(v.cols, v.rows);
+  const rgb = pal.map(hex => { const n = parseInt(hex.replace("#", ""), 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; });
+  const c = v.cells;
+  for (let i = 0; i < c.length; i++) {
+    const p = rgb[c.charCodeAt(i) - 48], o = i * 4;
+    img.data[o] = p[0]; img.data[o + 1] = p[1]; img.data[o + 2] = p[2]; img.data[o + 3] = 255;
+  }
+  const tmp = document.createElement("canvas"); tmp.width = v.cols; tmp.height = v.rows;
+  tmp.getContext("2d").putImageData(img, 0, 0);
+  ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(tmp, 0, 0, canvas.width, canvas.height);
+}
+
+function pct(x) { return Math.round(x * 100) + "%"; }
+
+function renderSection(m) {
+  const sec = document.getElementById("sec-" + m.id);
+  const variants = state.data[m.id] || [];
+  const v = variants[state.choice[m.id]];
+  if (!v) return;
+  sec.querySelectorAll(".chips button").forEach((b, i) => b.setAttribute("aria-pressed", String(i === state.choice[m.id])));
+  const s = v.stats;
+  sec.querySelector(".meter").innerHTML =
+    `<i style="width:${pct(s.copied)};background:var(--stitch-dim)"></i><i style="width:${pct(s.new)};background:var(--new)"></i><i style="width:${pct(s.echo)};background:var(--echo)"></i>`;
+  sec.querySelector(".stats").innerHTML =
+    `<span>of all stitches: copied ${pct(s.copied)}</span><span>new ${pct(s.new)}</span><span>echo ${pct(s.echo)}</span><span>${v.rows} needles × ${v.cols} rows</span>`;
+  draw(sec.querySelector("canvas"), v);
+  sec.querySelector(".caption").textContent = "Motifs, left to right: " + v.motifs.join(" · ");
+}
+
+function build() {
+  const main = document.getElementById("methods");
+  main.innerHTML = "";
+  for (const m of METHODS) {
+    const variants = state.data[m.id] || [];
+    const def = Math.max(0, variants.findIndex(v => v.label.includes("default")));
+    state.choice[m.id] = def;
+    const sec = document.createElement("section");
+    sec.className = "method"; sec.id = "sec-" + m.id;
+    sec.innerHTML = `
+      <div class="stack">
+        <span class="eyebrow">${m.short}</span>
+        <h2>${m.title}</h2>
+      </div>
+      <div class="cols">
+        <div class="prose stack">${m.body.map(p => `<p>${p}</p>`).join("")}
+          <p class="note"><strong>The setting:</strong> ${m.knob}</p></div>
+        <dl class="facts"><div><dt>Good at</dt><dd>${m.good}</dd></div><div><dt>Weak at</dt><dd>${m.weak}</dd></div></dl>
+      </div>
+      <div class="chips" role="group" aria-label="${m.title} settings">${variants.map((v, i) => `<button id="chip-${m.id}-${i}" data-i="${i}">${v.label}</button>`).join("")}</div>
+      <div class="meter" aria-hidden="true"></div>
+      <div class="stats"></div>
+      <div class="chart"><canvas role="img" aria-label="${m.title} banner chart"></canvas></div>
+      <p class="caption"></p>`;
+    main.appendChild(sec);
+    sec.querySelectorAll(".chips button").forEach(b => b.addEventListener("click", () => {
+      state.choice[m.id] = +b.dataset.i; renderSection(m);
+    }));
+    renderSection(m);
+  }
+}
+
+function redrawAll() { METHODS.forEach(renderSection); }
+
+function setMode(mode) {
+  state.mode = mode;
+  document.getElementById("mode-pattern").setAttribute("aria-pressed", String(mode === "pattern"));
+  document.getElementById("mode-origin").setAttribute("aria-pressed", String(mode === "origin"));
+  document.getElementById("legend").hidden = mode === "pattern";
+  redrawAll();
+}
+document.getElementById("mode-pattern").addEventListener("click", () => setMode("pattern"));
+document.getElementById("mode-origin").addEventListener("click", () => setMode("origin"));
+document.getElementById("zoom").addEventListener("input", e => { state.zoom = +e.target.value; redrawAll(); });
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", redrawAll);
+new MutationObserver(redrawAll).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+fetch("banners.json").then(r => r.json()).then(list => {
+  for (const v of list) (state.data[v.method] ||= []).push(v);
+  build();
+}).catch(() => {
+  document.getElementById("methods").innerHTML = '<p class="loading">The chart data could not be loaded. Reload the page to try again.</p>';
+});
+</script>
