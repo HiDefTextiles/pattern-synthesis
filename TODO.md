@@ -15,7 +15,7 @@ Quarto review (`review/`).
 - [x] Border bands on both long edges, motifs in a centre corridor.
 - [x] Deterministic compositor first; WFC only inside transition masks; quilting later; learned models deferred.
 - [x] Required outputs: PNG, grid PNG, TXT, JSON, metadata JSON, validation JSON.
-- [x] Patterns are public domain; derived patterns get an open licence.
+- [x] Patterns are public domain; derived patterns are CC BY 4.0.
 
 ## Still open for Helga
 
@@ -25,7 +25,6 @@ Quarto review (`review/`).
    the local `Documents/Sjonabok` changes so the submodule can pin them.
 3. **Machine checks** (see "To verify" in `DECISIONS.md`): transfer path, console
    memory, technique, float swatches, one full test banner.
-4. **Licence name.** Which open licence derived patterns use (e.g. CC BY 4.0 or CC0).
 
 ## Next in code
 

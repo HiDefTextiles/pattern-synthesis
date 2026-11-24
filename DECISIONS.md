@@ -60,7 +60,7 @@ machine_profile:
 ## Credit and rights
 
 The Sjónabók patterns are public domain, and all patterns derived from them are
-released under an open licence (Helga, 2026-11-24). The code is GPL-3.0.
+released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (Helga, 2026-11-24). The code is GPL-3.0.
 
 Every generated banner still carries its source manuscripts and pattern IDs in
 `banner.meta.json`, with a credit line naming Heimilisiðnaðarfélag Íslands,

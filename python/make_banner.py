@@ -81,7 +81,7 @@ class BannerJob:
             "copy_novelty": {"requested_ratio": self.s.layout["copy_novelty_ratio"],
                              "measured_copied_share_of_stitches": round(copied, 3)},
             "rights": {"source_patterns": "public domain",
-                       "generated_output": "open licence", "code": "GPL-3.0"},
+                       "generated_output": "CC BY 4.0", "generated_output_url": "https://creativecommons.org/licenses/by/4.0/", "code": "GPL-3.0"},
             "transformation": "computationally generated adaptation",
             "institutional_endorsement": False,
             "credit": credit(groups),
@@ -93,7 +93,7 @@ def credit(groups: list[str]) -> str:
             "Ornaments and Patterns Found in Iceland, published by Heimilisiðnaðarfélag Íslands "
             "with Þjóðminjasafn Íslands and Listaháskóli Íslands. Source manuscripts: "
             + ", ".join(groups) + ". The source patterns are public domain; this derived "
-            "pattern is released under an open licence.")
+            "pattern is released under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).")
 
 
 def git_rev(path: str) -> str | None:
