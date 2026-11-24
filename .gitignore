@@ -2,6 +2,7 @@ out/
 build/
 review/_book/
 review/.quarto/
+review/_theme/
 __pycache__/
 *.pyc
 .Rhistory

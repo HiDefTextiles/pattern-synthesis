@@ -74,7 +74,8 @@ docs-data: data $(DOCS_DATA) $(FRAMES_DATA)
 
 docs: docs-data  ## build the docs website -> site/_site/
 	cd site && quarto render
-	quarto render review --to html --output-dir ../site/_site/review
+	rm -rf review/_theme && mkdir -p review/_theme/img && cp -r site/styles review/_theme/ && cp -r site/img/hi review/_theme/img/
+	quarto render review --profile site --to html --output-dir ../site/_site/review
 
 docs-preview: docs-data  ## live preview of the docs website
 	cd site && quarto preview

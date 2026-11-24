@@ -1,0 +1,77 @@
+# Profile used when the review is rendered into the docs website
+# (`make docs` runs `quarto render review --profile site`). It keeps the book's
+# chapter sidebar and adds the site's navbar, footer and HÍ theme. The theme
+# files are copied from site/ into _theme/ by the Makefile (git-ignored).
+book:
+  favicon: _theme/img/hi/favicon.svg
+  navbar:
+    logo: _theme/img/hi/hi_named_logo-en.svg
+    logo-alt: "University of Iceland"
+    logo-href: https://hideftextiles.github.io/pattern-synthesis/
+    title: "Pattern synthesis"
+    background: primary
+    left:
+      - text: "Overview"
+        href: https://hideftextiles.github.io/pattern-synthesis/
+      - text: "Methods"
+        menu:
+          - text: "Wave function collapse"
+            href: https://hideftextiles.github.io/pattern-synthesis/methods/wfc.html
+          - text: "Stitch-by-stitch sampling"
+            href: https://hideftextiles.github.io/pattern-synthesis/methods/sampling.html
+          - text: "Image quilting"
+            href: https://hideftextiles.github.io/pattern-synthesis/methods/quilting.html
+          - text: "Symmetric connector"
+            href: https://hideftextiles.github.io/pattern-synthesis/methods/symmetric.html
+          - text: "Cellular automaton"
+            href: https://hideftextiles.github.io/pattern-synthesis/methods/cellular.html
+      - text: "Banner"
+        menu:
+          - text: "Spacing between motifs"
+            href: https://hideftextiles.github.io/pattern-synthesis/banner/spacing.html
+          - text: "Evolving motifs"
+            href: https://hideftextiles.github.io/pattern-synthesis/banner/evolve.html
+          - text: "Empty space around motifs"
+            href: https://hideftextiles.github.io/pattern-synthesis/banner/clear.html
+          - text: "Frames from border bands"
+            href: https://hideftextiles.github.io/pattern-synthesis/banner/frames.html
+          - text: "An endless banner"
+            href: https://hideftextiles.github.io/pattern-synthesis/banner/endless.html
+      - text: "Review"
+        href: index.qmd
+      - text: "Roadmap"
+        href: https://hideftextiles.github.io/pattern-synthesis/roadmap.html
+      - text: "About"
+        href: https://hideftextiles.github.io/pattern-synthesis/about.html
+    tools:
+      - icon: github
+        href: https://github.com/HiDefTextiles/pattern-synthesis
+        aria-label: GitHub
+  page-footer:
+    left: |
+      New patterns by Helga Ingimundardóttir, Háskóli Íslands, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), after public-domain
+      patterns in *Íslensk sjónabók* (2009) from Þjóðminjasafn Íslands and Nationalmuseet.
+    right:
+      - text: "Sjónabók gallery"
+        href: https://hideftextiles.github.io/Sjonabok/
+      - text: "HiDef textíll"
+        href: https://hideftextiles.github.io/
+      - icon: github
+        href: https://github.com/HiDefTextiles/pattern-synthesis
+        aria-label: GitHub
+
+format:
+  html:
+    theme:
+      - cosmo
+      - _theme/styles/hi-site.scss
+      - _theme/styles/hidef.scss
+      - _theme/styles/docs.scss
+    css:
+      - styles.css
+      - _theme/styles/hi-watermark.css
+    include-in-header:
+      - text: |
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
