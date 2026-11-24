@@ -57,6 +57,7 @@ git clone --recurse-submodules https://github.com/HiDefTextiles/pattern-synthesi
 make stats      # corpus sizes and fill ratios -> out/corpus-stats.tsv
 make banners    # prototype banners -> out/banners/ (needs numpy, Pillow)
 make banner SEED=1 FIRST=0   # one knitted piece + chart, provenance and validation files
+make clear RING=1            # motif templates with the empty space marked as '.'
 make review     # render the Quarto book -> review/_book/
 make preview    # live preview of the book
 ```

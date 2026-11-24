@@ -1,7 +1,7 @@
 # Todo
 
 Most pre-implementation questions are now answered in
-[`DECISIONS.md`](DECISIONS.md) (Helga, 2026-11-24). Background is in the
+[`DECISIONS.md`](https://github.com/HiDefTextiles/pattern-synthesis/blob/main/DECISIONS.md) (Helga, 2026-11-24). Background is in the
 Quarto review (`review/`).
 
 ## Decided

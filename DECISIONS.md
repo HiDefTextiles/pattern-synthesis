@@ -18,6 +18,7 @@ swatch, the machine or a written answer before it can be relied on.
 | Source groups | One source group (manuscript) per banner by default. `source_scope: mixed` is an explicit setting and keeps per-motif attribution |
 | Layout | Border bands along both long edges (the outer needles). Motifs follow a centre corridor across the width, with small controlled offsets. No wrap across the width |
 | Generation | A deterministic, symmetry-aware compositor places motifs and bands. Overlapping WFC fills only bounded transition masks. A no-blend mode is always available |
+| Empty space | A post-processing step on the motifs (`python/clear_space.py`) keeps each motif's stitches, a 1-stitch background ring and closed holes, and marks the rest of its square clear (`.` in text files). The fill step grows new pattern there. Setting: `clear_ring` (null = off). Knitted charts stay 0/1 |
 | Quilting | Keep the interface; implement after the first knitted test |
 | Learned models | Deferred |
 | Outputs | `banner.png`, `banner-grid.png`, `banner.txt`, `banner.json`, `banner.meta.json` (sources, seed, parameters, commits, credit), `banner.validation.json` (colours per row, float spans, size, backing profile) |

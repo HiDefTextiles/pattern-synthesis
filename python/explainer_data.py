@@ -6,6 +6,7 @@ parameter changes. Each cell is labelled:
     2/3 background/stitch generated
     4/5 background/stitch generated but part of an 8x8 block that also occurs
         exactly somewhere in Sjónabók ("echo")
+    6/7 background/stitch generated in a motif's clear space (clear_space.py)
 Usage: python3 python/explainer_data.py [slots] > docs/explainer/banners.json
 """
 import json
@@ -18,6 +19,7 @@ from numpy.lib.stride_tricks import sliding_window_view
 from banner import CORPUS_DIR, Banner, MotifPolicy, presets
 from fillers import (CellularFiller, EfrosLeungFiller, QuiltFiller, SymmetricFiller,
                      WfcFiller)
+from clear_space import clear_motifs
 from sjonabok import Corpus
 
 E = 8  # echo window
@@ -37,7 +39,7 @@ for p in corpus.patterns.values():
         book.update(keys(p.cells, E).tolist())
 
 VARIANTS = [
-    # (method, label, preset, filler factory, gap)
+    # (method, label, preset, filler factory, gap[, clear ring])
     ("wfc", "window 2×2", "mix", lambda: WfcFiller(n=2), 14),
     ("wfc", "window 3×3 (default)", "mix", lambda: WfcFiller(n=3), 14),
     ("efros-leung", "window 5×5", "mix", lambda: EfrosLeungFiller(window=5), 14),
@@ -56,21 +58,27 @@ VARIANTS = [
     ("spacing", "medium gaps (14)", "mix", lambda: EfrosLeungFiller(), 14),
     ("spacing", "wide gaps (30)", "mix", lambda: EfrosLeungFiller(), 30),
     ("evolve", "new motifs between anchors", "evolve", lambda: EfrosLeungFiller(), 26),
+    ("clear", "no clear space", "mix", lambda: EfrosLeungFiller(), 14, None),
+    ("clear", "ring 1 (default)", "mix", lambda: EfrosLeungFiller(), 14, 1),
+    ("clear", "ring 2", "mix", lambda: EfrosLeungFiller(), 14, 2),
 ]
 
 out = []
-for method, label, preset, make, gap in VARIANTS:
+for method, label, preset, make, gap, *rest in VARIANTS:
     t0 = time.time()
     cfg = table[preset]
+    ring = rest[0] if rest else None
     b = Banner(preset, cfg["seed"], MotifPolicy(cfg["kind"], motifs), corpus.band_tile(cfg["band"]),
-               corpus=corpus, filler=make(), gap=gap)
+               corpus=corpus, filler=make(), gap=gap,
+               clear=clear_motifs(motifs, ring) if ring is not None else {})
     chart, gen, _ = b.render(0, slots)
+    clear = b.clear_cells
     echo = np.zeros_like(gen)
     k = keys(chart, E).reshape(chart.shape[0] - E + 1, chart.shape[1] - E + 1)
     hit = np.vectorize(lambda x: x in book)(k)
     for y, x in np.argwhere(hit):
         echo[y:y + E, x:x + E] = True
-    cls = chart + 2 * gen + 2 * (gen & echo)
+    cls = chart + 2 * gen + 2 * (gen & echo & ~clear) + 4 * clear
     st = chart == 1                                       # shares are of stitches, not cells
 
     def share(m):
@@ -78,6 +86,7 @@ for method, label, preset, make, gap in VARIANTS:
     labels = b.labels(0, slots)
     out.append(dict(method=method, label=label, rows=int(chart.shape[0]), cols=int(chart.shape[1]),
                     motifs=labels, cells="".join(map(str, cls.ravel().tolist())),
-                    stats=dict(copied=share(~gen), new=share(gen & ~echo), echo=share(gen & echo))))
+                    stats=dict(copied=share(~gen), new=share(gen & ~echo & ~clear),
+                               echo=share(gen & echo & ~clear), clear=share(clear))))
     print(f"{method:12s} {label:30s} {chart.shape} {time.time()-t0:5.1f}s", file=sys.stderr)
 json.dump(out, sys.stdout, separators=(",", ":"))

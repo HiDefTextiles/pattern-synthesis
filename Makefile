@@ -2,7 +2,7 @@
 CORPUS := data/sjonabok/patterns/txt
 OUT    := out
 
-.PHONY: all data stats banners banner compare review docs-data docs docs-preview docs-clean preview clean
+.PHONY: all data stats banners banner clear compare review docs-data docs docs-preview docs-clean preview clean
 
 all: stats review
 
@@ -25,6 +25,11 @@ FIRST ?= 0
 banner: data | $(OUT)
 	python3 python/make_banner.py --seed $(SEED) --first $(FIRST) --out $(OUT)/banner-seed$(SEED)-from$(FIRST)
 
+# Post-processing step on the motifs: dotted templates with the clear space marked
+RING ?= 1
+clear: data | $(OUT)
+	python3 python/clear_space.py --ring $(RING) --out $(OUT)/clear
+
 compare: data | $(OUT)
 	python3 python/banner.py --filler compare --slots 4 --out $(OUT)/compare
 	python3 python/compare_fillers.py 4
@@ -41,7 +46,7 @@ preview:
 # make docs-preview : live preview of the site
 DOCS_DATA = site/data/banners.json
 
-$(DOCS_DATA): python/explainer_data.py python/banner.py python/fillers.py python/wfc.py python/sjonabok.py
+$(DOCS_DATA): python/explainer_data.py python/clear_space.py python/banner.py python/fillers.py python/wfc.py python/sjonabok.py
 	mkdir -p site/data
 	python3 python/explainer_data.py 20 > $@
 

@@ -122,6 +122,7 @@ class Banner:
     extras_per_source: int = 3
     corpus: Corpus | None = None
     filler: Filler | None = None    # default: overlapping WFC
+    clear: dict[str, np.ndarray] = field(default_factory=dict)  # motif name -> clear mask
     _cache: dict = field(default_factory=dict, repr=False)
 
     # ---- motifs -------------------------------------------------------------
@@ -205,11 +206,20 @@ class Banner:
         right = pb[:, :cb + 1]
         width = left.shape[1] + self.gap + right.shape[1]
         pinned = -np.ones((self.strip, width), dtype=int)
-        # pin the motif bounding boxes, and the two seam columns, to make stretches agree
-        pinned[ta:ta + a.shape[0], :left.shape[1]] = left[ta:ta + a.shape[0]]
-        pinned[tb:tb + b.shape[0], width - right.shape[1]:] = right[tb:tb + b.shape[0]]
+        # pin the motif bounding boxes, and the two seam columns, to make stretches agree.
+        # Cells a post-processing step marked clear (see clear_space.py) stay free.
+        ka = np.where(self.clear[an][:, ca:], -1, left[ta:ta + a.shape[0]].astype(int)) if an in self.clear \
+            else left[ta:ta + a.shape[0]]
+        kb = np.where(self.clear[bn][:, :cb + 1], -1, right[tb:tb + b.shape[0]].astype(int)) if bn in self.clear \
+            else right[tb:tb + b.shape[0]]
+        pinned[ta:ta + a.shape[0], :left.shape[1]] = ka
+        pinned[tb:tb + b.shape[0], width - right.shape[1]:] = kb
         pinned[:, 0] = left[:, 0]
         pinned[:, -1] = right[:, -1]
+        clear = np.zeros(pinned.shape, bool)
+        clear[ta:ta + a.shape[0], :left.shape[1]] = ka < 0
+        clear[tb:tb + b.shape[0], width - right.shape[1]:] = kb < 0
+        clear[:, [0, -1]] = False
 
         left_samples = [pa] + self._extras(an)
         right_samples = [pb] + self._extras(bn)
@@ -223,18 +233,20 @@ class Banner:
         if self.motif(k + 1)[2]:
             generated[tb:tb + b.shape[0], width - right.shape[1]:] = True
         self._cache[("s", k)] = (cells, generated)
+        self._cache[("c", k)] = clear
         return cells, generated
 
     # ---- render a window of slots -------------------------------------------
     def render(self, first: int, last: int) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Binary chart for slots first..last, plus a generated-cell mask and,
         per column (= knitted row), the slot that owns it (switch at mid-gap)."""
-        parts, gens, owner = [], [], []
+        parts, gens, owner, clears = [], [], [], []
         for k in range(first, last):
             cells, gen = self.stretch(k)
             keep = cells.shape[1] - (1 if k < last - 1 else 0)
             parts.append(cells[:, :keep])
             gens.append(gen[:, :keep])
+            clears.append(self._cache[("c", k)][:, :keep])
             mid = cells.shape[1] // 2
             owner += [k] * min(mid, keep) + [k + 1] * (keep - min(mid, keep))
         centre = np.hstack(parts).astype(np.uint8)
@@ -253,6 +265,8 @@ class Banner:
         chart = np.vstack([band, sp1, centre, sp2, band[::-1]])
         gmask = np.vstack([np.zeros_like(band, bool), np.zeros_like(sp1, bool), generated,
                            np.zeros_like(sp2, bool), np.zeros_like(band, bool)])
+        z = np.zeros_like
+        self.clear_cells = np.vstack([z(band, bool), z(sp1, bool), np.hstack(clears), z(sp2, bool), z(band, bool)])
         assert chart.shape[0] <= MAX_NEEDLES, chart.shape
         return chart, gmask, np.array(owner)
 
