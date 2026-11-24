@@ -34,3 +34,8 @@ make docs-preview
 ```
 
 The code is in `python/`: `banner.py` lays out the banner, `fillers.py` holds the methods, and `explainer_data.py` produces the charts shown here.
+
+## References
+
+::: {#refs}
+:::
