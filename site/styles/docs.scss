@@ -71,3 +71,11 @@
   .fv-grid img { width: 100%; height: auto; image-rendering: pixelated; border: 1px solid $hi-panel; }
   .fv-grid figcaption { font-size: 0.85rem; margin-top: 0.35rem; }
 }
+
+// The shared theme labels the page buttons in Icelandic; this site is English.
+nav.page-navigation {
+  .nav-page-previous .nav-page-text::before { content: "Previous"; }
+  .nav-page-next .nav-page-text::before { content: "Next"; }
+  .nav-page-topic.nav-page-next .nav-page-text::before { content: "Next topic"; }
+  .nav-page-topic.nav-page-previous .nav-page-text::before { content: "Previous topic"; }
+}
