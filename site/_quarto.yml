@@ -41,6 +41,7 @@ website:
           - href: banner/spacing.qmd
           - href: banner/evolve.qmd
           - href: banner/clear.qmd
+          - href: banner/frames.qmd
           - href: banner/endless.qmd
       - text: "Review"
         href: review/index.html

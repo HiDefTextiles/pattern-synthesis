@@ -1,0 +1,52 @@
+---
+title: "Frames from border bands"
+subtitle: "Four sides that mirror exactly, and three ways to turn the corner"
+---
+
+## In plain words
+
+A frame is four border bands around an empty middle. Each side is made of whole
+repeats of a band from the book, plus one extra column when the band needs it,
+so every side is an exact mirror image of itself end to end. The band's top
+row faces outwards on all four sides.
+
+Where two sides meet there is a square as tall as the band. That corner is
+where the new design happens, and there are three ways to fill it:
+
+| Corner | How it is made |
+|---|---|
+| **Mitre** | Both bands run on into the corner and meet on the diagonal, like a picture frame. Because the sides end on a mirror line, the seam is exact. |
+| **Motif block** | A small motif from the same manuscript, symmetric across the diagonal, is set in the corner square. |
+| **Grown** | The mitre is drawn, a disc in its middle is cleared, and the fill method grows new pattern there from the band. It is mirrored across the diagonal, and a seed fixes it. |
+
+**Cut.** A repeat can be started at any column, but the sides only mirror
+exactly at the band's own mirror lines. *Stored cut* uses the cut from the
+Sjónabók repository. *Best cut* tries every cut that mirrors and keeps the one
+with the cleanest corner: the fewest stray stitches of 1 to 3 cells, then the
+shortest float.
+
+Every frame below is as wide as fits on the machine (179 needles).
+
+## The frames
+
+```{=html}
+<div class="frames-viewer banner-viewer"></div>
+<script src="../js/frames.js"></script>
+```
+
+## Make one yourself
+
+```sh
+make frame BAND=thjms1105_38_p2 NX=4 NY=3 CORNER=all CUT=best SEED=1
+```
+
+This writes `frame.png`, `frame-grid.png`, `frame.txt` and `frame.meta.json`
+for each corner type, and `corners.png` with them side by side.
+
+## Good at, weak at
+
+| Good at | Weak at |
+|---|---|
+| Exact mirrored sides from any band with a mirror line (196 of 290 repeat units) | Bands without a mirror line cannot make a frame this way |
+| The mitre needs no new design and always joins cleanly | The grown corner can look busy: the fill method only learns from one band |
+| A frame is small enough to knit as a test piece | Small bands (10 to 12 rows) have no motif small enough for a motif block |
