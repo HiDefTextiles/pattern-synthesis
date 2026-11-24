@@ -1,0 +1,33 @@
+---
+title: "Symmetric connector"
+subtitle: "Design half, mirror the rest"
+---
+
+## In plain words
+
+Almost every Sjónabók figure is mirror-symmetric. This method uses that: the computer invents only the left half of each gap, with one of the other methods, and mirrors it onto the right half. The result is a bridge between two motifs that is symmetric like the originals.
+
+The mirroring adds an order that the other methods lack, which is why these fills read as designed ornaments rather than texture. The banner is also mirrored top to bottom in every method, as the originals are.
+
+## The setting
+
+**Which method invents the half.** Stitch-by-stitch sampling gives dense, flowing bridges; wave function collapse gives lighter, more open ones.
+
+## The banner
+
+```{=html}
+<div class="banner-viewer" data-method="symmetric"></div>
+<script src="../js/banner-viewer.js"></script>
+```
+
+## Good at, weak at
+
+| Good at | Weak at |
+|---|---|
+| Looks deliberate and balanced, close to how the book is composed | The mirror line can meet the next motif abruptly |
+| | More echoes, because mirrored pieces repeat the book |
+
+::: {.callout-note appearance="simple"}
+## Read more
+[Frieze group](https://en.wikipedia.org/wiki/Frieze_group) (Wikipedia; the seven ways a band can repeat) · [Wallpaper group](https://en.wikipedia.org/wiki/Wallpaper_group) (Wikipedia)
+:::

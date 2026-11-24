@@ -1,0 +1,33 @@
+---
+title: "Image quilting"
+subtitle: "Patchwork from the book"
+---
+
+## In plain words
+
+Instead of single stitches, the computer cuts small square pieces out of the book and lays them down like a patchwork, row by row, each piece slightly overlapping the ones already placed. It chooses pieces whose overlapping edge agrees with what is already there.
+
+Where two pieces overlap it cuts along the wiggly line where they disagree least, so the seams are hard to see. The method is from Efros and Freeman (2001).
+
+## The setting
+
+**Block size.** Small blocks are mixed more freely and give a busier, more invented texture. Large blocks bring whole chunks of the book along, which looks very authentic but copies more: watch the ochre grow as the blocks get bigger.
+
+## The banner
+
+```{=html}
+<div class="banner-viewer" data-method="quilting"></div>
+<script src="../js/banner-viewer.js"></script>
+```
+
+## Good at, weak at
+
+| Good at | Weak at |
+|---|---|
+| Fast and very book-like | With large blocks it is mostly reassembling the book |
+| Keeps larger shapes intact | |
+
+::: {.callout-note appearance="simple"}
+## Read more
+[Texture synthesis](https://en.wikipedia.org/wiki/Texture_synthesis) (Wikipedia)
+:::

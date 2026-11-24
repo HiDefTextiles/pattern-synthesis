@@ -1,0 +1,13 @@
+---
+title: "Evolving motifs"
+subtitle: "New motifs that morph between originals"
+---
+
+Here only every fourth motif is an original from the book; they act as anchors. The three motifs in between are new: the computer generates a quarter of a motif from the patterns of the two anchors on either side and mirrors it into a fully symmetric figure. The first new motif borrows mostly from the left anchor and the last mostly from the right, so the banner slowly changes character as it goes.
+
+This version invents the most, about a third of all stitches, and is the one to watch for a banner that evolves over its length. The new motifs are still rougher than the originals.
+
+```{=html}
+<div class="banner-viewer" data-method="evolve"></div>
+<script src="../js/banner-viewer.js"></script>
+```

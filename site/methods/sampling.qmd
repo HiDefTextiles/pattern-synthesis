@@ -1,0 +1,37 @@
+---
+title: "Stitch-by-stitch sampling"
+subtitle: "Look around, then copy what the book did"
+---
+
+## In plain words
+
+The gap is filled from its edges inward. For each empty stitch the computer looks at the stitches already decided around it, then searches the book for every spot whose surroundings look the same. It picks one of the best-matching spots and copies the stitch the book has in the middle.
+
+Because each new stitch is decided by its neighbours, shapes from the motifs grow outward into the gap and continue naturally. Near the left motif it searches that motif's manuscript; nearer the right motif it gradually switches to the right one's.
+
+This is the method usually credited to Efros and Leung (1999).
+
+## The settings
+
+**Window size** is how far around each stitch the computer looks: a small window only sees the immediate neighbours, a larger one recognises bigger shapes.
+
+**Tolerance** decides whether it must copy from the best-matching spots only, or may also use spots that differ by a few stitches. More tolerance makes the fill looser and more surprising.
+
+## The banner
+
+```{=html}
+<div class="banner-viewer" data-method="efros-leung"></div>
+<script src="../js/banner-viewer.js"></script>
+```
+
+## Good at, weak at
+
+| Good at | Weak at |
+|---|---|
+| Closest to the book's texture in our measurements | Tends to extend the neighbouring motif rather than invent a new figure |
+| Fills look solid and continuous | |
+
+::: {.callout-note appearance="simple"}
+## Read more
+[Texture synthesis](https://en.wikipedia.org/wiki/Texture_synthesis) (Wikipedia) · [Markov random field](https://en.wikipedia.org/wiki/Markov_random_field) (Wikipedia)
+:::

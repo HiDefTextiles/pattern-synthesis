@@ -1,0 +1,13 @@
+---
+title: "Spacing between motifs"
+subtitle: "How much room the computer gets"
+---
+
+The number of free knitted rows between two motifs is a setting that affects every method. All three banners below use stitch-by-stitch sampling.
+
+With little space the motifs almost touch and the banner is mostly copied. With a lot of space the computer has to invent long transitions, which is where the choice of method matters most.
+
+```{=html}
+<div class="banner-viewer" data-method="spacing"></div>
+<script src="../js/banner-viewer.js"></script>
+```

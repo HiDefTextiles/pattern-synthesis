@@ -1,0 +1,34 @@
+---
+title: "About"
+---
+
+## The project
+
+This site belongs to [HiDefTextiles/pattern-synthesis](https://github.com/HiDefTextiles/pattern-synthesis), part of [HiDef Textiles](https://hideftextiles.github.io/), a research project at the University of Iceland on machine knitting. The source charts come from the [Sjónabók repository](https://github.com/HiDefTextiles/Sjonabok), which is included as a git submodule, and can be browsed in the [Sjónabók gallery](https://hideftextiles.github.io/Sjonabok/).
+
+::: {.heimild}
+The patterns are centuries old and in the **public domain**. When you use generated designs, please credit the source: *Based on patterns from Íslensk sjónabók (Heimilisiðnaðarfélag Íslands, Listaháskóli Íslands, Þjóðminjasafn Íslands, 2009), digitised by HiDef Textiles.*
+:::
+
+## How the charts on this site are made
+
+All banners use the same motifs and the same seed, so only the method or one setting changes between them. Each is 85 needles wide (the knitting width) and about 1,000 rows long. The labels are computed per stitch:
+
+- **copied**: a stitch of an original motif or border band, taken unchanged from the book;
+- **new**: a stitch the method generated;
+- **echo**: a generated stitch that lies inside an 8×8 block which also occurs exactly somewhere in the book. A high echo share means the method is reassembling the book rather than inventing.
+
+The percentages under each chart are shares of all stitches (filled cells), not of the background.
+
+## Rebuilding
+
+From the repository root:
+
+```sh
+git clone --recurse-submodules https://github.com/HiDefTextiles/pattern-synthesis
+make docs-data   # generate site/data/banners.json (Python, numpy, Pillow; about two minutes)
+make docs        # render the site and the literature review into site/_site
+make docs-preview
+```
+
+The code is in `python/`: `banner.py` lays out the banner, `fillers.py` holds the methods, and `explainer_data.py` produces the charts shown here.

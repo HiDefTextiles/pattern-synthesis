@@ -21,6 +21,20 @@ the decisions in [`TODO.md`](TODO.md).
 This repository is meant to become a git submodule of the HiDEF site
 (HiDefTextiles/hidefTextiles.github.io).
 
+## Docs website
+
+`site/` is a Quarto website with the same HÍ look as the
+[Sjónabók gallery](https://hideftextiles.github.io/Sjonabok/): one page per
+method in plain words, each with an interactive banner, plus the literature
+review. It will be published at https://hideftextiles.github.io/pattern-synthesis/
+once the Pages workflow is added.
+
+```sh
+make docs-data   # generate site/data/banners.json (about two minutes)
+make docs        # render site/ and the review book into site/_site
+make docs-preview
+```
+
 ## Layout
 
 | Path | Purpose |
@@ -31,6 +45,7 @@ This repository is meant to become a git submodule of the HiDEF site
 | `R/` | tidyverse analysis of the corpus and of generated output |
 | `scripts/` | Small shell helpers called from the Makefile |
 | `review/` | Quarto book: literature review and recommendation |
+| `site/` | Quarto docs website (methods, banners, roadmap) |
 | `out/` | Generated files (git-ignored) |
 
 ## Usage

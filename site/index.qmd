@@ -1,0 +1,37 @@
+---
+title: "Sjónabók pattern synthesis"
+subtitle: "Growing new knitting patterns in the vein of Íslensk sjónabók"
+toc: false
+---
+
+HiDEF Textiles is building a reproducible way to generate new two-colour knitting charts that look as if they belong in *Íslensk sjónabók*, the collection of old Icelandic embroidery patterns. The first target is a long banner, in the spirit of a *refill*: border bands along both edges, the book's motifs on a centre line, and new stitches that blend one motif into the next. It is 85 needles wide for the Passap E6000 and, in principle, endless.
+
+This site explains the methods we have tried, in plain words, and shows what each one does on the same banner. In every chart you can switch between **Pattern only** (the two-colour knit) and **Copied vs new**, which colours what is taken straight from the book grey, invented stitches blue, and invented stitches that happen to recreate an exact 8×8 block from the book ochre.
+
+```{=html}
+<div class="banner-viewer" data-method="evolve"></div>
+<script src="js/banner-viewer.js"></script>
+```
+
+## The methods
+
+| Method | In one line | How it looks |
+|---|---|---|
+| [Wave function collapse](methods/wfc.qmd) | Sudoku with stitches: every 3×3 patch must occur in the book | Sparse, broken up |
+| [Stitch-by-stitch sampling](methods/sampling.qmd) | Look at the neighbours, copy what the book did | Dense, flows out of the motifs |
+| [Image quilting](methods/quilting.qmd) | Patchwork of small pieces cut from the book | Dense, continues the motif texture |
+| [Symmetric connector](methods/symmetric.qmd) | Invent half a bridge, mirror the rest | Ornamental bridges between motifs |
+| [Cellular automaton](methods/cellular.qmd) | One simple rule computes each row from the last | Crisp geometric lattices, not book-like |
+
+: {.method-table}
+
+Two settings change every method: [how far apart the motifs are](banner/spacing.qmd), and [whether the motifs themselves are new](banner/evolve.qmd). [An endless banner](banner/endless.qmd) explains how any part of the banner can be regenerated exactly.
+
+## Where this is going
+
+The [roadmap](roadmap.qmd) lists the decisions still open before the C++ implementation. The [literature review](review/index.html) covers the research behind each method. Colouring (up to four colours, two per knitted row) is deliberately left until the patterns are right.
+
+::: {.callout-note appearance="simple"}
+## Read more
+[Sjónabók](https://is.wikipedia.org/wiki/Sj%C3%B3nab%C3%B3k) (Icelandic Wikipedia) · [Refilsaumur](https://is.wikipedia.org/wiki/Refilsaumur) (Icelandic Wikipedia) · [Njálurefill](https://en.wikipedia.org/wiki/Nj%C3%A1lurefill) (Wikipedia) · [Fair Isle (knitting)](https://en.wikipedia.org/wiki/Fair_Isle_(knitting)) (Wikipedia)
+:::
