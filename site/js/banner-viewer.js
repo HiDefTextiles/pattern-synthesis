@@ -14,9 +14,9 @@
 
   function palette(mode) {
     const g = cssVar("--bv-ground"), s = cssVar("--bv-stitch");
-    if (mode === "pattern") return [g, s, g, s, g, s];
+    if (mode === "pattern") return [g, s, g, s, g, s, g, s];
     return [g, cssVar("--bv-copied"), cssVar("--bv-ground-new"), cssVar("--bv-new"),
-            cssVar("--bv-ground-new"), cssVar("--bv-echo")];
+            cssVar("--bv-ground-new"), cssVar("--bv-echo"), cssVar("--bv-ground-clear"), cssVar("--bv-clear")];
   }
 
   function draw(canvas, v, mode, z) {
@@ -54,6 +54,7 @@
           <span><i class="bv-sw" style="background:var(--bv-copied)"></i>copied from the book</span>
           <span><i class="bv-sw" style="background:var(--bv-new)"></i>new stitch</span>
           <span><i class="bv-sw" style="background:var(--bv-echo)"></i>new, but matches an 8×8 block in the book</span>
+          <span class="bv-clear-key"><i class="bv-sw" style="background:var(--bv-clear)"></i>new, filled into a motif's empty space</span>
         </div>
       </div>
       ${variants.length > 1 ? `<div class="bv-chips" role="group" aria-label="Settings">${variants.map((v, k) => `<button data-i="${k}">${v.label}</button>`).join("")}</div>` : ""}
@@ -71,10 +72,13 @@
       el.querySelector(".bv-meter").innerHTML =
         `<i style="width:${pct(s.copied)};background:var(--bv-copied)"></i>` +
         `<i style="width:${pct(s.new)};background:var(--bv-new)"></i>` +
-        `<i style="width:${pct(s.echo)};background:var(--bv-echo)"></i>`;
+        `<i style="width:${pct(s.echo)};background:var(--bv-echo)"></i>` +
+        `<i style="width:${pct(s.clear || 0)};background:var(--bv-clear)"></i>`;
       el.querySelector(".bv-stats").innerHTML =
         `<span>of all stitches: copied ${pct(s.copied)}</span><span>new ${pct(s.new)}</span>` +
-        `<span>echo ${pct(s.echo)}</span><span>${v.rows} needles × ${v.cols} rows</span>`;
+        `<span>echo ${pct(s.echo)}</span>` + (s.clear ? `<span>empty space ${pct(s.clear)}</span>` : "") +
+        `<span>${v.rows} needles × ${v.cols} rows</span>`;
+      el.querySelector(".bv-clear-key").hidden = !variants.some(x => x.stats.clear);
       el.querySelector(".bv-caption").textContent = "Motifs, left to right: " + v.motifs.join(" · ");
       draw(canvas, v, st.mode, st.zoom);
     }

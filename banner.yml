@@ -13,6 +13,7 @@ layout:
   mixed_mode: manuscripts       # manuscripts (runs per manuscript) | mix
   allowed_source_groups: []     # used when source_scope is mixed
   copy_novelty_ratio: 0.35      # share of area that is pinned / verbatim
+  clear_ring: 1                 # post-process motifs: keep a ring this wide, clear the rest (null = off)
 
 colour:
   palette_size: 4

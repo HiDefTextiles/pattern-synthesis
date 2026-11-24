@@ -1,0 +1,48 @@
+---
+title: "Empty space around motifs"
+subtitle: "Keep a ring around each motif, fill the rest"
+---
+
+## In plain words
+
+Many Sjónabók motifs sit in a square with empty corners. Before the banner is
+generated, a small extra step goes over each motif: it keeps the motif's own
+stitches, a ring of background one stitch wide around them, and any holes the
+motif closes in. The rest of the square is marked as *empty space*.
+
+The fill method then treats that empty space like the gaps between motifs and
+grows new pattern into it. The ring means the new pattern never touches the
+motif, so the motif stays readable. Motifs that already fill their square are
+left as they are.
+
+In the text files the empty space is written as a dot, so the three states are
+easy to see and edit:
+
+```
+..........00100..........
+.........0010100.........
+...0000001010101000000...
+...0100110101010110010...
+```
+
+The knitted chart is still only background and stitch: empty space that is not
+filled is knitted as background.
+
+## The settings
+
+**Ring width** is how much background is kept around each motif. A wider ring
+leaves less empty space and a calmer banner.
+
+## The banner
+
+```{=html}
+<div class="banner-viewer" data-method="clear"></div>
+<script src="../js/banner-viewer.js"></script>
+```
+
+## Good at, weak at
+
+| Good at | Weak at |
+|---|---|
+| More new pattern, without touching the original motifs | Only about half the motifs have empty space with a 1-stitch ring |
+| Motifs stay readable because of the ring | The new pattern can look like a frame when the corner is small |

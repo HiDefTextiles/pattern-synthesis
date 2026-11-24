@@ -20,6 +20,7 @@ from PIL import Image, ImageDraw
 from banner import CORPUS_DIR, PALETTE2, Banner, MotifPolicy, source_of
 from fillers import FILLERS
 from sjonabok import Corpus, Pattern
+from clear_space import clear_motifs
 from validate import Settings, validate
 
 GENERATOR_VERSION = "0.1.0"
@@ -47,7 +48,9 @@ class BannerJob:
         self.banner = Banner("v1", seed, MotifPolicy(kind, self.pool),
                              self.corpus.band_tile(lay["band"]), corpus=self.corpus,
                              needles=lay["width"], gap=lay.get("gap", 14),
-                             filler=FILLERS[filler]())
+                             filler=FILLERS[filler](),
+                             clear=clear_motifs(self.pool, lay["clear_ring"])
+                             if lay.get("clear_ring") is not None else {})
 
     def render(self) -> tuple[np.ndarray, np.ndarray, int]:
         """Machine-orientation chart and generated mask, cropped to window_rows."""
@@ -55,6 +58,7 @@ class BannerJob:
         while True:
             chart, gen, _ = self.banner.render(self.first, last)
             if chart.shape[1] >= want:
+                self.clear = self.banner.clear_cells[:, :want].T.copy()
                 return chart[:, :want].T.copy(), gen[:, :want].T.copy(), last
             last += 1
 
@@ -90,7 +94,9 @@ class BannerJob:
             "source_manuscripts": [museum_no(g) for g in groups],
             "source_items": items,
             "copy_novelty": {"requested_ratio": self.s.layout["copy_novelty_ratio"],
-                             "measured_copied_share_of_stitches": round(copied, 3)},
+                             "measured_copied_share_of_stitches": round(copied, 3),
+                             "stitches_filled_into_clear_space":
+                                 round(float((stitched & self.clear).sum() / max(stitched.sum(), 1)), 3)},
             "rights": {"source_patterns": "public domain",
                        "generated_output": "CC BY 4.0", "generated_output_url": "https://creativecommons.org/licenses/by/4.0/", "code": "GPL-3.0"},
             "credit": credit(groups),
@@ -162,7 +168,8 @@ def main() -> None:
         "rows": int(chart.shape[0]), "width": int(chart.shape[1]),
         "orientation": "row = knitted row, column = needle",
         "palette": [list(c) for c in PALETTE2[:2]],
-        "cells": ["".join(map(str, r)) for r in chart]}, indent=1))
+        "cells": ["".join(map(str, r)) for r in chart],
+        "clear": ["".join("1" if c else "0" for c in r) for r in job.clear]}, indent=1))
     meta = job.meta(chart, gen, last)
     (o / "banner.meta.json").write_text(json.dumps(meta, indent=1, ensure_ascii=False))
     rep = validate(chart, s)
