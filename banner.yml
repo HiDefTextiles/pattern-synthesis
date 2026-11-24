@@ -1,0 +1,33 @@
+# Version-1 banner settings. Defaults and reasons: DECISIONS.md.
+# Chart orientation in all outputs: one line per knitted row, one column per needle.
+
+layout:
+  width: 85                     # needles; warn above 168, reject above 179
+  endless: true                 # seeded, any window renders on its own
+  window_rows: 400              # knitted rows in one piece
+  border: edge_bands            # bands on the outer needles, both sides
+  alignment: centre_corridor
+  band: thjms1105_38_p2         # border band (one horizontal period is repeated)
+  source_scope: single          # single | mixed
+  source_group: thjms1105       # manuscript used when source_scope is single
+  mixed_mode: manuscripts       # manuscripts (runs per manuscript) | mix
+  allowed_source_groups: []     # used when source_scope is mixed
+  copy_novelty_ratio: 0.35      # share of area that is pinned / verbatim
+
+colour:
+  palette_size: 4
+  normal_row_colours: 2
+  max_row_colours: 3
+  allow_four_colour_rows: false
+  three_colour_row_fraction_max: 0.15   # design default, not a machine limit
+
+float_policy:
+  report_all_spans: true
+  hard_limit_stitches: null     # set from a calibrated swatch profile
+  calibrated_profile: null
+
+machine_profile:
+  needles: 179
+  transfer_path: passapi_stream # passapi_stream | e6000_console | designaknit
+  console_memory: unknown       # unknown | 8k | 32k
+  technique: double_bed_birdseye

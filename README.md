@@ -15,8 +15,10 @@ generation, and learned models, and argues for a composable pipeline (see
 `review/09-recommendation.qmd`). A first **Python prototype** (`python/banner.py`, `make banners`) renders an
 endless, seeded banner: border bands, Sjónabók motifs pinned on a centre line,
 overlapping WFC filling the stretches between them, with two-colour output (colouring is a
-separate, later stage). Previews are in `previews/`. The C++ core comes after
-the decisions in [`TODO.md`](TODO.md).
+separate, later stage). Previews are in `previews/`. Version-1 decisions are in [`DECISIONS.md`](DECISIONS.md) and the defaults in
+[`banner.yml`](banner.yml); `make banner` writes the full output set
+(`banner.png`, `banner-grid.png`, `banner.txt`, `banner.json`, `banner.meta.json`,
+`banner.validation.json`). The C++ core comes after the open items in [`TODO.md`](TODO.md).
 
 This repository is meant to become a git submodule of the HiDEF site
 (HiDefTextiles/hidefTextiles.github.io).
@@ -54,6 +56,7 @@ make docs-preview
 git clone --recurse-submodules https://github.com/HiDefTextiles/pattern-synthesis-
 make stats      # corpus sizes and fill ratios -> out/corpus-stats.tsv
 make banners    # prototype banners -> out/banners/ (needs numpy, Pillow)
+make banner SEED=1 FIRST=0   # one knitted piece + chart, provenance and validation files
 make review     # render the Quarto book -> review/_book/
 make preview    # live preview of the book
 ```
@@ -67,7 +70,9 @@ page.
 
 ## Licence
 
-GPL-3.0, matching Sjonabok and the site. The Sjónabók designs themselves come
-from Heimilisiðnaðarfélag Íslands, Listaháskóli Íslands and Þjóðminjasafn
-Íslands. The patterns are public domain; generated output should still credit
-the Sjónabók and the original source number.
+Code: GPL-3.0, matching Sjonabok and the site. Generated patterns:
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), created by Helga Ingimundardóttir, Háskóli Íslands.
+
+The source patterns (Þjóðminjasafn Íslands and Nationalmuseet manuscripts, via
+*Íslensk sjónabók*, 2009) are public domain. Each banner's `banner.meta.json`
+lists the manuscript numbers it draws on and a short credit line.
