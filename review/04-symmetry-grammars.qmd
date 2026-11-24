@@ -4,7 +4,7 @@
 
 Repeating plane patterns fall into the 7 frieze groups (one direction of
 translation, i.e. *bands*) and the 17 wallpaper groups (two directions)
-[@grunbaum1987tilings]. @washburn1988symmetries made symmetry
+[@grunbaum1987tilings; overviews in @wiki_frieze and @wiki_wallpaper]. @washburn1988symmetries made symmetry
 classification a standard tool for analysing textile and ceramic design
 across cultures. @liu2004computational give an algorithm that detects the
 frieze or wallpaper group of a periodic image, which could be used on the
@@ -31,7 +31,7 @@ grammar that captures a style is manual work.
 
 ## Cellular automata
 
-Elementary cellular automata [@wolfram1983statistical; @wolfram2002new]
+Elementary cellular automata [@wolfram1983statistical; @wolfram2002new; @wiki_eca]
 produce rich binary patterns row by row, which matches the row-by-row nature
 of knitting. They are an interesting source of novel texture but they do not
 learn from examples, so "in the vein of Sjónabók" would have to be achieved

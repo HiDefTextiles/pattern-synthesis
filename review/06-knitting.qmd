@@ -14,9 +14,7 @@ instruction "programs") that a chart generator should be able to export to.
 
 ## Patterns from images and sketches
 
-The paper *Generating knitting patterns from a sketch: a CSP approach* [@knitsketch2013] *(authors not verified)* frames turning a sketch into a
-knitting pattern as a CSP, an early example of constraint solving for
-knitting design. Commercial and hobby "photo to chart" tools for Fair Isle
+Commercial and hobby "photo to chart" tools for Fair Isle
 and intarsia exist (e.g. ArtPatt), but these quantise an image rather than
 generate in a style.
 
@@ -24,7 +22,7 @@ generate in a style.
 
 Stranded colourwork (including Fair Isle) traditionally uses two colours per
 row with the unused colour carried as a float behind the work
-[@wikipedia_fairisle]. Practitioner guidance limits floats to roughly five
+[@wiki_fairisle]. Practitioner guidance limits floats to roughly five
 to seven stitches before they must be caught; this is craft convention
 rather than a published standard *(no academic source found)*. On a
 double-bed machine such as the Passap E6000, two-colour jacquard knits the
@@ -43,10 +41,11 @@ for HiDEF.
 
 ## Icelandic sources
 
-Beyond the Sjónabók book itself [@sjonabok2009], Elsa E. Guðjónsson's
+Beyond the Sjónabók book itself [@sjonabok], Elsa E. Guðjónsson's
 scholarship on Icelandic embroidery, including *Íslenskur útsaumur*
-[@gudjonsson1985utsaumur] and the posthumous *Með verkum handanna:
-Íslenskur refilsaumur fyrri alda* [@gudjonsson2016refil], documents the
+[@gudjonsson_utsaumur] and the posthumous *Með verkum handanna:
+Íslenskur refilsaumur fyrri alda* [@gudjonsson2023refil], documents the
 refilsaumur hangings that inspire the banner idea. The Textile Research
-Centre Leiden also has short online entries on refilsaumur and on
-eighteenth-century Icelandic counted-thread patterns [@trc_refilsaumur].
+Centre Leiden has a short online entry on refilsaumur [@trc_refilsaumur],
+and the modern *Njálurefill*, a long hanging in the same technique, has a
+Wikipedia article [@wiki_njalurefill].

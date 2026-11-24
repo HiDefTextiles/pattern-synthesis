@@ -1,5 +1,7 @@
 # Texture synthesis and Markov random fields {#sec-texture}
 
+Background overviews: @wiki_texture_synthesis and @wiki_mrf (Wikipedia).
+
 ## Non-parametric sampling
 
 @efros1999texture grow a texture pixel by pixel, choosing each new value by

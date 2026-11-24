@@ -3,7 +3,7 @@
 ## Source
 
 *Íslensk sjónabók: Ornaments and Patterns Found in Iceland*
-[@sjonabok2009] was published jointly by Heimilisiðnaðarfélag Íslands,
+[@sjonabok] was published jointly by Heimilisiðnaðarfélag Íslands,
 Listaháskóli Íslands and Þjóðminjasafn Íslands. It reproduces patterns from
 old Icelandic pattern books and textiles held in museum collections, and the
 book ships with a CD of `.eps` figures.

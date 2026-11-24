@@ -11,6 +11,8 @@ project:
     - img/hi/hi_logo.svg
 
 lang: en
+bibliography: ../review/references.bib
+link-citations: true
 
 website:
   title: "Pattern synthesis"
@@ -52,7 +54,7 @@ website:
   page-footer:
     left: |
       Source charts from *Íslensk sjónabók* (Heimilisiðnaðarfélag Íslands, Listaháskóli Íslands,
-      Þjóðminjasafn Íslands, 2009), digitised by [HiDef Textiles](https://hideftextiles.github.io/).
+      Þjóðminjasafn Íslands), digitised by [HiDef Textiles](https://hideftextiles.github.io/).
       The patterns are centuries old and in the public domain.
     right:
       - text: "Sjónabók gallery"

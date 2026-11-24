@@ -1,6 +1,8 @@
 ---
 title: "Symmetric connector"
 subtitle: "Design half, mirror the rest"
+nocite: |
+  @grunbaum1987tilings, @washburn1988symmetries, @liu2004computational
 ---
 
 ## In plain words
@@ -27,7 +29,11 @@ The mirroring adds an order that the other methods lack, which is why these fill
 | Looks deliberate and balanced, close to how the book is composed | The mirror line can meet the next motif abruptly |
 | | More echoes, because mirrored pieces repeat the book |
 
-::: {.callout-note appearance="simple"}
-## Read more
-[Frieze group](https://en.wikipedia.org/wiki/Frieze_group) (Wikipedia; the seven ways a band can repeat) · [Wallpaper group](https://en.wikipedia.org/wiki/Wallpaper_group) (Wikipedia)
+## Sources
+
+The papers behind this page. Where a free copy exists (author page, arXiv, university repository), the link goes there.
+
+::: {#refs}
 :::
+
+**Background reading:** [Frieze group](https://en.wikipedia.org/wiki/Frieze_group) (Wikipedia; the seven ways a band can repeat) · [Wallpaper group](https://en.wikipedia.org/wiki/Wallpaper_group) (Wikipedia)
