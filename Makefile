@@ -2,7 +2,13 @@
 CORPUS := data/sjonabok/patterns/txt
 OUT    := out
 
-.PHONY: all data stats banners banner clear compare review docs-data docs docs-preview docs-clean preview clean
+.PHONY: help setup all data stats banners banner clear compare review docs-data docs docs-preview docs-clean preview clean
+
+help:           ## list the targets (default)
+	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | sed 's/:.*## /\t/' | expand -t 16
+
+setup: data     ## fetch the Sjónabók corpus and install the Python packages
+	python3 -m pip install -r requirements.txt
 
 all: stats review
 
@@ -12,29 +18,29 @@ data:
 $(OUT):
 	mkdir -p $@
 
-stats: data | $(OUT)
+stats: data | $(OUT)  ## corpus sizes and fill ratios -> out/corpus-stats.tsv
 	scripts/corpus-stats.sh $(CORPUS) > $(OUT)/corpus-stats.tsv
 	@echo "wrote $(OUT)/corpus-stats.tsv"
 
-banners: data | $(OUT)
+banners: data | $(OUT)  ## prototype banners, all presets -> out/banners/
 	python3 python/banner.py --preset all --slots 9 --far 1000 --out $(OUT)/banners
 
 # One knitted piece with the full version-1 output set (settings: banner.yml)
 SEED ?= 1
 FIRST ?= 0
-banner: data | $(OUT)
+banner: data | $(OUT)  ## one knitted piece with all outputs (SEED=1 FIRST=0) -> out/banner-*/
 	python3 python/make_banner.py --seed $(SEED) --first $(FIRST) --out $(OUT)/banner-seed$(SEED)-from$(FIRST)
 
 # Post-processing step on the motifs: dotted templates with the clear space marked
 RING ?= 1
-clear: data | $(OUT)
+clear: data | $(OUT)  ## motif templates with empty space as '.' (RING=1) -> out/clear/
 	python3 python/clear_space.py --ring $(RING) --out $(OUT)/clear
 
-compare: data | $(OUT)
+compare: data | $(OUT)  ## compare the fill methods -> out/compare/
 	python3 python/banner.py --filler compare --slots 4 --out $(OUT)/compare
 	python3 python/compare_fillers.py 4
 
-review:
+review:         ## render the literature review -> review/_book/
 	quarto render review
 
 preview:
@@ -52,15 +58,15 @@ $(DOCS_DATA): python/explainer_data.py python/clear_space.py python/banner.py py
 
 docs-data: data $(DOCS_DATA)
 
-docs: docs-data
+docs: docs-data  ## build the docs website -> site/_site/
 	cd site && quarto render
 	quarto render review --to html --output-dir ../site/_site/review
 
-docs-preview: docs-data
+docs-preview: docs-data  ## live preview of the docs website
 	cd site && quarto preview
 
 docs-clean:
 	rm -rf site/_site site/.quarto site/data
 
-clean:
+clean:          ## remove generated files
 	rm -rf out review/_book review/.quarto

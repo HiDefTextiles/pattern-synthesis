@@ -1,80 +1,65 @@
 # pattern-synthesis
 
-Reproducible generation of new knitting patterns in the vein of
-*Íslensk sjónabók*, the Icelandic pattern collection digitised in
-[HiDefTextiles/Sjonabok](https://github.com/HiDefTextiles/Sjonabok).
+Seeded, reproducible generation of new knitting patterns in the style of
+*Íslensk sjónabók*. The first target is an endless **banner**, 85 needles wide,
+that blends the Sjónabók motifs into each other. Same seed, same banner.
 
-Goal: given a seed and a configuration, produce the same new two-colour chart
-every time, built from the corpus's motifs and style. The first concrete target
-is a long **banner** (in the spirit of a *refilsaumur* hanging) that contains
-the main Sjónabók motifs and blends smoothly between them.
+Docs, with every method explained in plain words:
+**https://hideftextiles.github.io/pattern-synthesis/**
 
-The method is deliberately open. The literature review in `review/` compares
-wave function collapse, texture synthesis, symmetry and grammar based
-generation, and learned models, and argues for a composable pipeline (see
-`review/09-recommendation.qmd`). A first **Python prototype** (`python/banner.py`, `make banners`) renders an
-endless, seeded banner: border bands, Sjónabók motifs pinned on a centre line,
-overlapping WFC filling the stretches between them, with two-colour output (colouring is a
-separate, later stage). Previews are in `previews/`. Version-1 decisions are in [`DECISIONS.md`](DECISIONS.md) and the defaults in
-[`banner.yml`](banner.yml); `make banner` writes the full output set
-(`banner.png`, `banner-grid.png`, `banner.txt`, `banner.json`, `banner.meta.json`,
-`banner.validation.json`). The C++ core comes after the open items in [`TODO.md`](TODO.md).
-
-This repository is meant to become a git submodule of the HiDEF site
-(HiDefTextiles/hidefTextiles.github.io).
-
-## Docs website
-
-`site/` is a Quarto website with the same HÍ look as the
-[Sjónabók gallery](https://hideftextiles.github.io/Sjonabok/): one page per
-method in plain words, each with an interactive banner, plus the literature
-review. It is published at https://hideftextiles.github.io/pattern-synthesis/;
-`.github/workflows/docs.yml` rebuilds it on every push to `main`.
-
-```sh
-make docs-data   # generate site/data/banners.json (about two minutes)
-make docs        # render site/ and the review book into site/_site
-make docs-preview
-```
-
-## Layout
-
-| Path | Purpose |
-|------|---------|
-| `data/sjonabok/` | Submodule: HiDefTextiles/Sjonabok (input corpus, `patterns/txt/*.txt`, 0/1 matrices) |
-| `src/`, `include/` | C++ core (later): pattern type, seeded RNG, synthesis stages |
-| `python/` | Exploration and prototypes |
-| `R/` | tidyverse analysis of the corpus and of generated output |
-| `scripts/` | Small shell helpers called from the Makefile |
-| `review/` | Quarto book: literature review and recommendation |
-| `site/` | Quarto docs website (methods, banners, roadmap) |
-| `out/` | Generated files (git-ignored) |
-
-## Usage
+## Quick start
 
 ```sh
 git clone --recurse-submodules https://github.com/HiDefTextiles/pattern-synthesis
-make stats      # corpus sizes and fill ratios -> out/corpus-stats.tsv
-make banners    # prototype banners -> out/banners/ (needs numpy, Pillow)
-make banner SEED=1 FIRST=0   # one knitted piece + chart, provenance and validation files
-make clear RING=1            # motif templates with the empty space marked as '.'
-make review     # render the Quarto book -> review/_book/
-make preview    # live preview of the book
+cd pattern-synthesis
+make setup          # corpus submodule + Python packages
+make banner         # one knitted piece -> out/banner-seed1-from0/
 ```
 
-## Pattern format
+`make` on its own lists every target.
 
-Inherited from Sjonabok: one text file per pattern, one line per row, `1` =
-contrast colour (black in the source), `0` = background, no header. Files are
-named `<source>_<page>[_pN].txt`, where `_pN` is a sub-pattern split from a
-page.
+## Everyday commands
 
-## Licence
+| Command | What you get |
+|---|---|
+| `make banner SEED=7` | A banner piece from another seed |
+| `make banner FIRST=100` | A piece further along the same endless banner |
+| `make clear RING=1` | Motif templates with their empty space marked as `.` |
+| `make banners` | Preview banners for every preset in `out/banners/` |
+| `make compare` | The same banner with every fill method, side by side |
+| `make docs` / `make docs-preview` | Build or preview the docs website |
+| `make review` | Render the literature review (Quarto book) |
+| `make clean` | Remove everything generated |
 
-Code: GPL-3.0, matching Sjonabok and the site. Generated patterns:
-[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), created by Helga Ingimundardóttir, Háskóli Íslands.
+Settings live in [`banner.yml`](banner.yml) (width, colours, empty-space ring,
+manuscript). The reasons behind them are in [`DECISIONS.md`](DECISIONS.md), and
+the open items are in [`TODO.md`](TODO.md).
 
-The source patterns (Þjóðminjasafn Íslands and Nationalmuseet manuscripts, via
-*Íslensk sjónabók*, 2009) are public domain. The charts were digitised in 2024
-(NSN summer project) from the pattern files on the CD that comes with the book. Each banner's `banner.meta.json`
-lists the manuscript numbers it draws on and a short credit line.
+## What `make banner` writes
+
+| File | Contents |
+|---|---|
+| `banner.png` | Preview |
+| `banner-grid.png` | Enlarged chart with row and needle numbers |
+| `banner.txt` | Chart: one line per knitted row, `0` background, `1` stitch |
+| `banner.json` | Same chart plus the empty-space layer |
+| `banner.meta.json` | Seed, settings, source manuscripts, credit line |
+| `banner.validation.json` | Colours per row and float lengths |
+
+## Pattern files
+
+One text file per chart, one line per row: `1` stitch, `0` background, and `.`
+empty space (knitted as `0` unless something is filled in). The corpus is the
+[Sjonabok](https://github.com/HiDefTextiles/Sjonabok) repository, included as
+the submodule `data/sjonabok/`.
+
+## Licence and credit
+
+Code: GPL-3.0. Generated patterns: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/),
+by Helga Ingimundardóttir, Háskóli Íslands.
+
+The source patterns come from manuscripts at Þjóðminjasafn Íslands and
+Nationalmuseet. They were published in *Íslensk sjónabók* (2009) and are in the
+public domain. HiDef Textiles digitised them in 2024 (NSN summer project) from
+the CD that comes with the book. Each banner lists the manuscripts it draws on
+in `banner.meta.json`.
