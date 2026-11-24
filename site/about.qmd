@@ -7,7 +7,7 @@ title: "About"
 This site belongs to [HiDefTextiles/pattern-synthesis](https://github.com/HiDefTextiles/pattern-synthesis), part of [HiDef Textiles](https://hideftextiles.github.io/), a research project at the University of Iceland on machine knitting. The source charts come from the [Sjónabók repository](https://github.com/HiDefTextiles/Sjonabok), which is included as a git submodule, and can be browsed in the [Sjónabók gallery](https://hideftextiles.github.io/Sjonabok/).
 
 ::: {.heimild}
-The motifs are centuries old. Every generated banner records its source manuscripts and pattern numbers. When you use generated designs, please credit the source: *Based on patterns from Íslensk sjónabók (Heimilisiðnaðarfélag Íslands, Listaháskóli Íslands, Þjóðminjasafn Íslands), digitised by HiDef Textiles.*
+The patterns are centuries old and in the **public domain**, and all derived patterns are released under an open licence. Every generated banner records its source manuscripts and pattern numbers. When you use generated designs, please credit the source: *Based on patterns from Íslensk sjónabók (Heimilisiðnaðarfélag Íslands, Listaháskóli Íslands, Þjóðminjasafn Íslands), digitised by HiDef Textiles.*
 :::
 
 ## How the charts on this site are made

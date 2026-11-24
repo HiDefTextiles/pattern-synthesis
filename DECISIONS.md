@@ -59,19 +59,13 @@ machine_profile:
 
 ## Credit and rights
 
-Record four things separately rather than labelling everything "public domain":
+The Sjónabók patterns are public domain, and all patterns derived from them are
+released under an open licence (Helga, 2026-11-24). The code is GPL-3.0.
 
-1. the historical motifs (centuries old);
-2. the source digital assets (the CD `.eps` files and their transcriptions), *to verify*;
-3. the code licence (GPL-3.0);
-4. the licence for generated output.
-
-The project has written permission to use the Sjónabók material for this work.
-That is permission to use it, not a licence to redistribute the CD files. So the
-`.eps` files stay out of git until redistribution is confirmed in writing. Every
-generated banner carries its source manuscripts and pattern IDs in
-`banner.meta.json`, and its credit states that it is a computational adaptation
-that the institutions have not endorsed.
+Every generated banner still carries its source manuscripts and pattern IDs in
+`banner.meta.json`, with a credit line naming Heimilisiðnaðarfélag Íslands,
+Listaháskóli Íslands and Þjóðminjasafn Íslands. The repository stores the
+binary `.txt` charts, not the CD `.eps` files.
 
 ## To verify on the machine
 
@@ -80,4 +74,3 @@ that the institutions have not endorsed.
 - Float and backing swatches in the four yarns, saved as a named profile.
 - One 85-needle banner window, mostly two colours, knitted end to end, checking edges and carriage travel.
 - The local `Documents/Sjonabok` changes are committed and the submodule pins that commit.
-- Written confirmation of whether the CD `.eps` files may be redistributed.
