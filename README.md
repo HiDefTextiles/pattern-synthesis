@@ -72,6 +72,6 @@ page.
 
 GPL-3.0, matching Sjonabok and the site. The Sjónabók designs themselves come
 from Heimilisiðnaðarfélag Íslands, Listaháskóli Íslands and Þjóðminjasafn
-Íslands. The patterns are public domain, and patterns derived from them are
+Íslands; the digitisation is by Helga Ingimundardóttir, Háskóli Íslands. The patterns are public domain, and patterns derived from them are
 released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Every generated banner carries its credit and
 source numbers in `banner.meta.json`.
