@@ -43,6 +43,9 @@ book:
         href: https://hideftextiles.github.io/pattern-synthesis/roadmap.html
       - text: "About"
         href: https://hideftextiles.github.io/pattern-synthesis/about.html
+    right:
+      - text: "Sjónabók gallery"
+        href: https://hideftextiles.github.io/Sjonabok/
     tools:
       - icon: github
         href: https://github.com/HiDefTextiles/pattern-synthesis

@@ -4,7 +4,7 @@ subtitle: "Growing new knitting patterns in the vein of Íslensk sjónabók"
 toc: false
 ---
 
-HiDEF Textiles is building a reproducible way to generate new two-colour knitting charts that look as if they belong in *Íslensk sjónabók*, the collection of old Icelandic embroidery patterns. The first target is a long banner, in the spirit of a *refill*: border bands along both edges, the book's motifs on a centre line, and new stitches that blend one motif into the next. It is 85 needles wide for the Passap E6000 and, in principle, endless.
+HiDEF Textiles is building a reproducible way to generate new two-colour knitting charts that look as if they belong in *Íslensk sjónabók*, the collection of old Icelandic embroidery patterns. All the source charts can be browsed in the [Sjónabók gallery](https://hideftextiles.github.io/Sjonabok/), and the data and code are in the [Sjonabok repository](https://github.com/HiDefTextiles/Sjonabok). The first target is a long banner, in the spirit of a *refill*: border bands along both edges, the book's motifs on a centre line, and new stitches that blend one motif into the next. It is 85 needles wide for the Passap E6000 and, in principle, endless.
 
 This site explains the methods we have tried, in plain words, and shows what each one does on the same banner. In every chart you can switch between **Pattern only** (the two-colour knit) and **Copied vs new**, which colours what is taken straight from the book grey, invented stitches blue, and invented stitches that happen to recreate an exact 8×8 block from the book ochre.
 
