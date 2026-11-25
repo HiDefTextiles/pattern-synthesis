@@ -40,9 +40,9 @@ clear: data | $(OUT)  ## motif templates with empty space as '.' (RING=1) -> out
 BAND ?= thjms1105_38_p2
 NX ?= 4
 NY ?= 3
-CORNER ?= all
+CORNER ?= mitre
 CUT ?= best
-frame: data | $(OUT)  ## a frame from one band (BAND= NX= NY= CORNER=mitre|motif|grown|all CUT=best|stored) -> out/frame-*/
+frame: data | $(OUT)  ## a frame from one band (BAND= NX= NY= CORNER=mitre|motif|grown|all, default mitre CUT=best|stored) -> out/frame-*/
 	python3 python/frame.py --band $(BAND) --nx $(NX) --ny $(NY) --corner $(CORNER) --cut $(CUT) --seed $(SEED) --out $(OUT)/frame-$(BAND)
 
 compare: data | $(OUT)  ## compare the fill methods -> out/compare/
