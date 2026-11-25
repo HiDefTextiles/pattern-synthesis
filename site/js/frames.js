@@ -11,15 +11,15 @@
     motif: "A small symmetric motif from the book sits in the corner.",
     grown: "The middle of the mitre is cleared and grown again from the band.",
   };
-  let band = 0, cut = "stored";
+  let band = 0, cut = "best";
 
   root.innerHTML = `
     <div class="fv-controls">
       <label>Band <select class="fv-band">${data.map((d, i) =>
         `<option value="${i}">${d.band} (${d.credit})</option>`).join("")}</select></label>
       <span class="bv-seg" role="group" aria-label="Cut">
-        <button type="button" data-cut="stored" aria-pressed="true">Stored cut</button>
-        <button type="button" data-cut="best" aria-pressed="false">Best cut</button>
+        <button type="button" data-cut="best" aria-pressed="true">Best cut</button>
+        <button type="button" data-cut="stored" aria-pressed="false">Stored cut</button>
       </span>
     </div>
     <p class="fv-cutnote bv-caption"></p>
@@ -30,7 +30,7 @@
     const d = data[band], c = d.cuts[cut];
     root.querySelector(".fv-cutnote").textContent =
       `Side starts ${c.shift} stitches into the repeat and closes with ${c.close} column${c.close === 1 ? "" : "s"}.` +
-      (cut === "best" && c.shift === d.cuts.stored.shift ? " The stored cut is already the best." : "");
+      (cut === "best" && c.shift === d.cuts.stored.shift ? " Same as the stored cut." : "");
     grid.innerHTML = Object.entries(c.frames).map(([k, f]) => `
       <figure>
         <img src="${base + f.src}" alt="${names[k]} frame from ${d.band}" loading="lazy"

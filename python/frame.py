@@ -9,9 +9,9 @@ sides meet in square corners as tall as the band, filled by one of:
     grown   the mitre with a disc in the middle cleared and grown again by the
             WFC filler from the band, mirrored across the diagonal (seeded)
 
-The cut (where a side starts within the repeat) is the stored one by default.
-With cut="best" every cut that still mirrors exactly is tried and the one with
-the cleanest corner is kept.
+The cut (where a side starts within the repeat) is "best" by default: every cut
+that still mirrors exactly is tried and the one with the cleanest corner is kept.
+cut="stored" uses the cut from the Sjonabok repository.
 
 Usage (from the repo root):
     python3 python/frame.py --band thjms1105_38_p2 --nx 4 --ny 3 --corner all --out out/frame
@@ -300,7 +300,7 @@ def main() -> None:
     ap.add_argument("--nx", type=int, default=4, help="repeats along the top and bottom")
     ap.add_argument("--ny", type=int, default=3, help="repeats along the sides")
     ap.add_argument("--corner", default="all", choices=CORNERS + ("all",))
-    ap.add_argument("--cut", default="stored", choices=("stored", "best"))
+    ap.add_argument("--cut", default="best", choices=("best", "stored"))
     ap.add_argument("--seed", type=int, default=1)
     ap.add_argument("--needles", type=int, default=179)
     ap.add_argument("--out", type=Path, default=Path("out/frame"))

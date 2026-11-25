@@ -20,10 +20,10 @@ where the new design happens, and there are three ways to fill it:
 | **Grown** | The mitre is drawn, a disc in its middle is cleared, and the fill method grows new pattern there from the band. It is mirrored across the diagonal, and a seed fixes it. |
 
 **Cut.** A repeat can be started at any column, but the sides only mirror
-exactly at the band's own mirror lines. *Stored cut* uses the cut from the
-Sjónabók repository. *Best cut* tries every cut that mirrors and keeps the one
-with the cleanest corner: the fewest stray stitches of 1 to 3 cells, then the
-shortest float.
+exactly at the band's own mirror lines. *Best cut*, the default, tries every
+cut that mirrors and keeps the one with the cleanest corner: the fewest stray
+stitches of 1 to 3 cells, then the shortest float. *Stored cut* uses the cut
+from the Sjónabók repository.
 
 Every frame below is as wide as fits on the machine (179 needles).
 
@@ -37,7 +37,7 @@ Every frame below is as wide as fits on the machine (179 needles).
 ## Make one yourself
 
 ```sh
-make frame BAND=thjms1105_38_p2 NX=4 NY=3 CORNER=all CUT=best SEED=1
+make frame BAND=thjms1105_38_p2 NX=4 NY=3 CORNER=all SEED=1
 ```
 
 This writes `frame.png`, `frame-grid.png`, `frame.txt` and `frame.meta.json`
