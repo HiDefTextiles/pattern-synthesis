@@ -34,4 +34,5 @@ Quarto review (`review/`).
 - [ ] Source scope setting (single manuscript by default) and bounded transition masks in the endless layout.
 - [ ] Row-band palette schedule with accent mask (after the pattern work).
 - [x] Frames from four border bands with three corner types (`make frame`, docs page).
+- [ ] Better grown frame corners: sometimes worse than the mitre, but could beat it (Helga, 2026-11-25). Ideas: learn from more bands of the same manuscript, score candidates against the mitre and keep the best of several seeds.
 - [ ] Machine adapters, one per transfer path, each with an end-to-end test.

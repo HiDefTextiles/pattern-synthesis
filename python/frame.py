@@ -299,7 +299,7 @@ def main() -> None:
     ap.add_argument("--band", default="thjms1105_38_p2")
     ap.add_argument("--nx", type=int, default=4, help="repeats along the top and bottom")
     ap.add_argument("--ny", type=int, default=3, help="repeats along the sides")
-    ap.add_argument("--corner", default="all", choices=CORNERS + ("all",))
+    ap.add_argument("--corner", default="mitre", choices=CORNERS + ("all",))
     ap.add_argument("--cut", default="best", choices=("best", "stored"))
     ap.add_argument("--seed", type=int, default=1)
     ap.add_argument("--needles", type=int, default=179)

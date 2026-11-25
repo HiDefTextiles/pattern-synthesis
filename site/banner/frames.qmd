@@ -37,7 +37,8 @@ Every frame below is as wide as fits on the machine (179 needles).
 ## Make one yourself
 
 ```sh
-make frame BAND=thjms1105_38_p2 NX=4 NY=3 CORNER=all SEED=1
+make frame BAND=thjms1105_38_p2 NX=4 NY=3            # mitre corners, best cut
+make frame BAND=thjms1105_38_p2 CORNER=all            # all three corner types
 ```
 
 This writes `frame.png`, `frame-grid.png`, `frame.txt` and `frame.meta.json`
